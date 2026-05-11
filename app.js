@@ -62,15 +62,15 @@ const PRODUCTOS = [
     },
     {
         id: 4,
-        nombre: 'Senderito 0.5L',
+        nombre: 'Terra 600cc',
         marca: 'Lumilagro',
-        capacidad: '500 ml',
-        material: 'Plastico con interior de vidrio',
-        precio: 22000,
+        capacidad: '600 ml',
+        material: 'Plastico con ampolla de vidrio',
+        precio: 19500,
         stock: 30,
         badge: null,
-        imagen: 'productos-imagenes/lumilagro-senderito-500.webp',
-        descripcion: 'Termo compacto para llevar al trabajo o caminata. Liviano y de tamaño ideal para uso individual.'
+        imagen: 'productos-imagenes/lumilagro-terra-600.webp',
+        descripcion: 'Termo compacto de 600cc, ideal para llevar en la mochila. Ampolla de vidrio con sistema de doble pared al vacio.'
     },
     {
         id: 5,
@@ -201,9 +201,12 @@ const limpiarErrores = () => {
 const mostrarError = (input, mensaje) => {
     input.classList.add('con-error');
     const span = crearElemento('span', 'form__error', mensaje);
-    /* .after() inserta el span como hermano siguiente del input.
-       Usar createElement + textContent en lugar de innerHTML evita inyeccion. */
-    input.after(span);
+    /* Si el input esta envuelto en un <label> (como el checkbox de
+       terminos), insertamos el error despues del label completo,
+       no entre el input y el texto del label. */
+    const labelEnvoltorio = input.closest('label');
+    const anchor = labelEnvoltorio || input;
+    anchor.after(span);
 };
 
 const validarFormulario = (evento) => {

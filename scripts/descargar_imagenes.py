@@ -59,8 +59,8 @@ PRODUCTOS = [
         "marca": "Stanley",
         "nombre": "Mate System 800ml",
         "archivo": "stanley-mate-system.webp",
-        # stanley1913.ar (VTEX assets, 800px)
-        "url": "https://stanleypm.vtexassets.com/arquivos/ids/159318-800-auto?v=638742945237100000&width=800&height=auto&aspect=true",
+        # toromates.com (CloudFront CDN, fondo blanco limpio sin overlays)
+        "url": "https://d22fxaf9t8d39k.cloudfront.net/2d7a318615646fc671f800523359db5a35888724eab8c7875c2538a0b2f54e7b40982.jpg",
     },
     {
         "marca": "Lumilagro",
@@ -71,10 +71,10 @@ PRODUCTOS = [
     },
     {
         "marca": "Lumilagro",
-        "nombre": "Senderito 500ml",
-        "archivo": "lumilagro-senderito-500.webp",
-        # eltiovende.com (retailer AR, fondo blanco)
-        "url": "https://www.eltiovende.com/wp-content/uploads/2023/05/LM-45451-optimized.jpg",
+        "nombre": "Terra 600cc",
+        "archivo": "lumilagro-terra-600.webp",
+        # lumilagro.com.ar (sitio oficial, imagen Terra verde 800x800)
+        "url": "https://www.lumilagro.com.ar/wp-content/uploads/2020/12/terraverde1-800x800.jpg",
     },
     {
         "marca": "Waicom",

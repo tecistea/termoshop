@@ -46,8 +46,12 @@ termoshop/
 ├── docs/
 │   ├── PR.md                Template del Pull Request (lo lleno yo durante el desarrollo)
 │   └── prompts-usados.md    Log cronologico de prompts a Claude Code
-└── productos-imagenes/      6 webp optimizados (<100KB c/u)
+├── scripts/
+│   └── descargar_imagenes.py  Descarga + optimiza las imagenes (Pillow + requests)
+└── productos-imagenes/      6 webp 600x600 RGB, total ~45 KB
 ```
+
+Las imagenes de `productos-imagenes/` fueron descargadas desde sitios oficiales/retailers y optimizadas por `scripts/descargar_imagenes.py` (Pillow + requests). El producto Waicom Premium 1L usa un placeholder generado por el script porque la marca es regional y no tiene presencia online publica.
 
 ## Checklist de requisitos (36 items)
 
@@ -99,6 +103,18 @@ termoshop/
 - [x] `formatearPrecio` arrow con `Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' })`
 - [x] Demos: `.map`, `.filter`, `.find`, `.reduce`, `filter + map` y `filter + reduce` encadenados
 - [x] `console.table(PRODUCTOS)`
+
+## Regenerar imagenes
+
+Si necesitas regenerar las imagenes de productos:
+
+```bash
+python scripts/descargar_imagenes.py
+# para forzar la redescarga aunque ya existan:
+python scripts/descargar_imagenes.py --force
+```
+
+El script requiere `Pillow` y `requests` (`pip install Pillow requests`).
 
 ## Autor
 
