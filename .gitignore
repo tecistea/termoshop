@@ -10,6 +10,10 @@ Desktop.ini
 *.swo
 *~
 
+# Claude Code
+.claude/
+CLAUDE.md
+
 # Logs y temporales
 *.log
 *.tmp

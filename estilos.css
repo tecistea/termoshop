@@ -1,0 +1,612 @@
+/* ====================================================================
+   termoshop - estilos.css
+   --------------------------------------------------------------------
+   Hoja de estilos del parcial 1. Orden de secciones:
+     1. Variables CSS (:root)
+     2. Reset universal
+     3. Base (body, links, headings)
+     4. Layout (header fixed, nav flex, main, footer)
+     5. Componentes (hero, catalogo, producto, badge, form, mapa)
+     6. Animaciones (@keyframes + delays escalonados)
+     7. Pseudo-elementos decorativos
+     8. Media queries (mobile-first, al final)
+   ==================================================================== */
+
+
+/* ====== 1. VARIABLES :ROOT ======
+   Centralizan paleta, tipografia y tokens de diseño.
+   Cambiar el color primario aca lo propaga a todo el sitio sin tocar reglas. */
+:root {
+    /* Colores */
+    --color-primario: #2C3E2D;       /* verde militar Stanley */
+    --color-acento:   #C9A961;       /* dorado mate (badges, acentos) */
+    --color-calido:   #D4A574;       /* beige cuero (hover sutil) */
+    --color-fondo:    #F5F1EA;       /* crema fondo */
+    --color-superficie: #FFFFFF;     /* fondo de cards y form */
+    --color-texto:    #1A1A1A;       /* carbon */
+    --color-texto-suave: #555555;    /* descripciones */
+    --color-error:    #8B3A2F;       /* terracota mensajes de error */
+    --color-exito:    #2C3E2D;       /* verde exito */
+    --color-borde:    #D8D2C4;       /* bordes sutiles */
+
+    /* Tipografia */
+    --fuente-titulo: "Bricolage Grotesque", system-ui, sans-serif;
+    --fuente-cuerpo: "Inter", system-ui, sans-serif;
+
+    /* Espaciado en rem para escalar con preferencias del usuario */
+    --espacio-xs: 0.25rem;
+    --espacio-sm: 0.5rem;
+    --espacio-md: 1rem;
+    --espacio-lg: 2rem;
+    --espacio-xl: 3rem;
+
+    /* Radios y sombras */
+    --radio-sm: 0.4rem;
+    --radio:    0.75rem;
+    --radio-lg: 1.25rem;
+    --sombra-card:       0 4px 12px rgba(0, 0, 0, 0.08);
+    --sombra-card-hover: 0 12px 28px rgba(0, 0, 0, 0.16);
+    --sombra-nav:        0 2px 8px rgba(0, 0, 0, 0.06);
+
+    /* Layout */
+    --max-ancho: 1200px;
+    --altura-nav: 4rem;
+}
+
+
+/* ====== 2. RESET UNIVERSAL ======
+   box-sizing: border-box hace que padding y border NO sumen al ancho.
+   Sin esto, un width:100% + padding:1rem se desborda del contenedor. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ====== 3. BASE ====== */
+html {
+    /* scroll suave entre secciones cuando se clickean los links del nav */
+    scroll-behavior: smooth;
+    /* compensa la navbar fixed: el ancla queda debajo del nav, no detras */
+    scroll-padding-top: var(--altura-nav);
+}
+
+body {
+    font-family: var(--fuente-cuerpo);
+    /* clamp() para tipografia fluida: minimo 1rem, maximo 1.125rem, ideal 2.2vw */
+    font-size: clamp(1rem, 1vw + 0.75rem, 1.125rem);
+    line-height: 1.6;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    /* padding-top empuja el contenido para que no quede tapado por la navbar fixed */
+    padding-top: var(--altura-nav);
+}
+
+h1, h2, h3 {
+    font-family: var(--fuente-titulo);
+    line-height: 1.2;
+    color: var(--color-primario);
+}
+
+a {
+    color: var(--color-primario);
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+}
+
+
+/* ====== 4. LAYOUT ====== */
+
+/* Cabecera fija arriba con z-index alto para quedar sobre todo el contenido (req 17) */
+.cabecera {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--altura-nav);
+    background-color: var(--color-superficie);
+    box-shadow: var(--sombra-nav);
+}
+
+/* Navbar 1D con Flexbox: logo izq, links centro, CTA der (req 14) */
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: 0 var(--espacio-md);
+}
+
+.nav__logo {
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-primario);
+}
+
+.nav__lista {
+    display: flex;
+    gap: var(--espacio-md);
+    list-style: none;
+}
+
+.nav__link {
+    /* position relative para que el underline animado (::after) se posicione */
+    position: relative;
+    padding: var(--espacio-xs) var(--espacio-sm);
+    font-weight: 500;
+    /* transitions especificas (req 19): NO usamos transition: all */
+    transition: color 0.25s ease;
+}
+
+.nav__link:hover,
+.nav__link.activa {
+    color: var(--color-acento);
+}
+
+.nav__cta {
+    background-color: var(--color-primario);
+    color: var(--color-superficie);
+    padding: var(--espacio-sm) var(--espacio-md);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.nav__cta:hover {
+    background-color: var(--color-acento);
+    transform: translateY(-2px);
+}
+
+/* Main: contenedor con max-width para no estirarse en monitores anchos */
+.main {
+    max-width: var(--max-ancho);
+    margin: 0 auto;
+    padding: 0 var(--espacio-md);
+}
+
+
+/* ====== 5. COMPONENTES ====== */
+
+/* Hero: banner principal sin imagen (gradiente CSS) para ahorrar peso */
+.hero {
+    padding: var(--espacio-xl) var(--espacio-md);
+    margin: var(--espacio-lg) 0;
+    border-radius: var(--radio-lg);
+    background: linear-gradient(135deg, var(--color-primario) 0%, #1A2A1B 100%);
+    color: var(--color-superficie);
+    text-align: center;
+}
+
+.hero__titulo {
+    /* clamp fluido entre mobile y desktop: minimo 2rem, ideal 6vw, maximo 4rem */
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--color-superficie);
+    margin-bottom: var(--espacio-md);
+}
+
+.hero__subtitulo {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 40rem;
+    margin: 0 auto var(--espacio-lg);
+    opacity: 0.9;
+}
+
+.hero__boton {
+    display: inline-block;
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    padding: var(--espacio-md) var(--espacio-lg);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.hero__boton:hover {
+    background-color: var(--color-calido);
+    transform: translateY(-2px);
+}
+
+/* Secciones genericas */
+.seccion {
+    margin: var(--espacio-xl) 0;
+}
+
+.seccion__titulo {
+    /* position relative para anclar el ::after decorativo (req 21) */
+    position: relative;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    margin-bottom: var(--espacio-md);
+}
+
+.seccion__intro {
+    color: var(--color-texto-suave);
+    margin-bottom: var(--espacio-lg);
+    max-width: 50rem;
+}
+
+/* Catalogo: grid 2D mobile-first (req 13, 15).
+   1 columna base, 2 cols >= 768px, 3 cols >= 1024px.
+   Uso unidad fr para que las columnas sean fluidas (req 16). */
+.catalogo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espacio-lg);
+}
+
+/* Card de producto.
+   position: relative permite anclar el badge absoluto adentro (req 18).
+   transition lista campos especificos (transform y box-shadow), NO usa "all" (req 19). */
+.producto {
+    position: relative;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra-card);
+    /* arranca invisible: la animacion fadeInUp la trae al cargar */
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover: combinacion de translateY + scale (req 19) */
+.producto:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--sombra-card-hover);
+}
+
+.producto__imagen {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: var(--color-fondo);
+}
+
+.producto__cuerpo {
+    padding: var(--espacio-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.producto__marca {
+    color: var(--color-texto-suave);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.producto__nombre {
+    font-family: var(--fuente-titulo);
+    font-size: 1.25rem;
+    color: var(--color-texto);
+}
+
+.producto__meta {
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+}
+
+.producto__precio {
+    font-family: var(--fuente-titulo);
+    font-size: 1.4rem;
+    color: var(--color-primario);
+    font-weight: 700;
+}
+
+.producto__stock {
+    font-size: 0.85rem;
+    color: var(--color-texto-suave);
+}
+
+.producto__descripcion {
+    /* arranca oculto, se expande al togglear .expandida con classList */
+    display: none;
+    margin-top: var(--espacio-sm);
+    color: var(--color-texto-suave);
+}
+
+.producto.expandida .producto__descripcion {
+    display: block;
+}
+
+.producto__boton {
+    background-color: var(--color-primario);
+    color: var(--color-superficie);
+    padding: var(--espacio-sm) var(--espacio-md);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    margin-top: var(--espacio-sm);
+    transition: background-color 0.25s ease;
+}
+
+.producto__boton:hover {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+}
+
+/* Badge: position absolute respecto al .producto relative (req 18).
+   top y right en rem para escalar con el resto del diseño. */
+.badge {
+    position: absolute;
+    top: var(--espacio-md);
+    right: var(--espacio-md);
+    padding: var(--espacio-xs) var(--espacio-sm);
+    border-radius: var(--radio-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-superficie);
+    z-index: 2;
+}
+
+.badge--nuevo {
+    background-color: var(--color-primario);
+}
+
+.badge--oferta {
+    background-color: var(--color-error);
+}
+
+/* Form: layout 1D con Flex columnar */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-md);
+    max-width: 40rem;
+    padding: var(--espacio-lg);
+    background-color: var(--color-superficie);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-card);
+}
+
+.form__campo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-xs);
+}
+
+.form__campo--checkbox {
+    flex-direction: row;
+    align-items: center;
+}
+
+.form__label {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form__label-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-sm);
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.form__input {
+    padding: var(--espacio-sm) var(--espacio-md);
+    font-family: inherit;
+    font-size: 1rem;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-sm);
+    background-color: var(--color-fondo);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.form__input:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px rgba(44, 62, 45, 0.15);
+}
+
+.form__input--textarea {
+    resize: vertical;
+    min-height: 6rem;
+}
+
+/* Input en estado de error (JS aplica esta clase) */
+.form__input.con-error {
+    border-color: var(--color-error);
+}
+
+/* Mensaje de error inyectado dinamicamente por JS con createElement */
+.form__error {
+    color: var(--color-error);
+    font-size: 0.85rem;
+    margin-top: var(--espacio-xs);
+}
+
+.form__boton {
+    background-color: var(--color-primario);
+    color: var(--color-superficie);
+    padding: var(--espacio-md) var(--espacio-lg);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+    align-self: flex-start;
+}
+
+.form__boton:hover {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    transform: translateY(-2px);
+}
+
+.form__exito {
+    padding: var(--espacio-md);
+    background-color: rgba(44, 62, 45, 0.1);
+    color: var(--color-exito);
+    border-radius: var(--radio-sm);
+    font-weight: 600;
+}
+
+/* Mapa: contenedor responsive para iframe */
+.mapa {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra-card);
+}
+
+.mapa iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Imagen destacada */
+.destacado {
+    margin-top: var(--espacio-lg);
+    text-align: center;
+}
+
+.destacado img {
+    max-width: 20rem;
+    margin: 0 auto;
+    border-radius: var(--radio);
+}
+
+.destacado figcaption {
+    margin-top: var(--espacio-sm);
+    color: var(--color-texto-suave);
+    font-style: italic;
+}
+
+/* Footer: Flexbox 1D con wrap */
+.pie {
+    background-color: var(--color-primario);
+    color: var(--color-superficie);
+    padding: var(--espacio-xl) var(--espacio-md);
+    margin-top: var(--espacio-xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacio-lg);
+    justify-content: space-around;
+}
+
+.pie__col {
+    flex: 1;
+    min-width: 12rem;
+}
+
+.pie__titulo {
+    color: var(--color-acento);
+    margin-bottom: var(--espacio-sm);
+    font-size: 1.1rem;
+}
+
+.pie p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: var(--espacio-xs);
+}
+
+
+/* ====== 6. ANIMACIONES ======
+   @keyframes fadeInUp: las cards aparecen desde abajo con leve fade (req 20).
+   animation-fill-mode: forwards conserva el estado final (opacity:1) despues
+   de terminar; sin esto, las cards volverian a invisible. */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Delay escalonado por posicion del card (req 20).
+   Cada card entra 100ms despues que la anterior, dando efecto cascada. */
+.producto:nth-child(1) { animation-delay: 0ms; }
+.producto:nth-child(2) { animation-delay: 100ms; }
+.producto:nth-child(3) { animation-delay: 200ms; }
+.producto:nth-child(4) { animation-delay: 300ms; }
+.producto:nth-child(5) { animation-delay: 400ms; }
+.producto:nth-child(6) { animation-delay: 500ms; }
+
+
+/* ====== 7. PSEUDO-ELEMENTOS DECORATIVOS ======
+   ::after en h2 dibuja una barra dorada bajo el titulo (req 21).
+   content:'' es obligatorio para que el pseudo-elemento se renderice. */
+.seccion__titulo::after {
+    content: '';
+    display: block;
+    width: 4rem;
+    height: 3px;
+    background-color: var(--color-acento);
+    margin-top: var(--espacio-sm);
+    border-radius: 2px;
+}
+
+/* Underline animado en links del nav: arranca con ancho 0 y crece en hover */
+.nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-acento);
+    transition: width 0.3s ease;
+}
+
+.nav__link:hover::after,
+.nav__link.activa::after {
+    width: 100%;
+}
+
+
+/* ====== 8. MEDIA QUERIES (MOBILE-FIRST) ======
+   Estrategia min-width: el base es mobile y vamos sumando reglas para pantallas
+   mas grandes. Esto da CSS mas chico y prioriza el dispositivo mas restrictivo. */
+
+/* Tablet: >= 768px */
+@media (min-width: 768px) {
+    .catalogo {
+        /* 2 columnas iguales (req 15) */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav {
+        padding: 0 var(--espacio-lg);
+    }
+}
+
+/* Desktop: >= 1024px */
+@media (min-width: 1024px) {
+    .catalogo {
+        /* 3 columnas iguales (req 15) */
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .main {
+        padding: 0 var(--espacio-lg);
+    }
+
+    .hero {
+        padding: calc(var(--espacio-xl) * 2) var(--espacio-lg);
+    }
+}
