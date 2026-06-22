@@ -36,29 +36,9 @@ const obtenerProductos = async () =>
 
 
 /* ====== 2. UTILS ======
-   Helpers chicos que reutilizan render y validacion. */
-
-/* formatearPrecio: usa Intl.NumberFormat con locale es-AR para mostrar
-   $215.000 con separadores argentinos (req 34). Arrow para cumplir req 31. */
-const formatearPrecio = (numero) =>
-    new Intl.NumberFormat('es-AR', {
-        style: 'currency',
-        currency: 'ARS',
-        maximumFractionDigits: 0
-    }).format(numero);
-
-/* crearElemento: shortcut para crear un nodo con clases y texto.
-   Usa textContent (no innerHTML) para evitar inyeccion de HTML. */
-const crearElemento = (tag, clases = '', texto = '') => {
-    const el = document.createElement(tag);
-    if (clases) {
-        el.className = clases;
-    }
-    if (texto) {
-        el.textContent = texto;
-    }
-    return el;
-};
+   formatearPrecio y crearElemento viven en js/utils.js (compartidos con
+   admin.js y carrito.js). Este archivo los usa asumiendo que utils.js se
+   carga antes (ver orden de <script> en index.html). */
 
 
 /* ====== 3. RENDER ======
