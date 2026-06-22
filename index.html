@@ -24,6 +24,8 @@
          Orden importa: config (claves) -> api (wrapper fetch) -> app (logica). -->
     <script src="js/config.js" defer></script>
     <script src="js/api.js" defer></script>
+    <script src="js/sesion.js" defer></script>
+    <script src="js/carrito.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 <body>
@@ -41,7 +43,8 @@
                 <li><a href="#ubicacion" class="nav__link" data-seccion="ubicacion">Ubicacion</a></li>
             </ul>
 
-            <a href="#catalogo" class="nav__cta">Ver termos</a>
+            <!-- Estado de sesion (login / email + salir). Lo pinta sesion.js -->
+            <div class="nav__sesion" id="nav-sesion"></div>
         </nav>
     </header>
 

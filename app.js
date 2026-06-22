@@ -111,6 +111,13 @@ const crearCard = (producto) => {
     boton.dataset.id = producto.id;
     cuerpo.append(boton);
 
+    /* Boton "agregar al carrito" (Parcial 2). El listener delegado lo
+       distingue por su clase y usa dataset.id para saber que producto. */
+    const botonCarrito = crearElemento('button', 'producto__carrito', 'Agregar al carrito');
+    botonCarrito.type = 'button';
+    botonCarrito.dataset.id = producto.id;
+    cuerpo.append(botonCarrito);
+
     card.append(cuerpo);
     return card;
 };
@@ -249,6 +256,19 @@ const validarFormulario = (evento) => {
    closest() sube por el DOM hasta encontrar un elemento con data-id.
    Si el click cayo fuera de un boton/card, closest devuelve null y salimos. */
 const handlerCatalogo = (evento) => {
+    /* Caso 1: click en "agregar al carrito" (Parcial 2). */
+    const botonCarrito = evento.target.closest('.producto__carrito');
+    if (botonCarrito) {
+        const idProducto = Number(botonCarrito.dataset.id);
+        /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
+        agregarAlCarrito(idProducto).catch((error) => {
+            console.error('No se pudo agregar al carrito:', error);
+            alert('No se pudo agregar al carrito. Intenta de nuevo.');
+        });
+        return;
+    }
+
+    /* Caso 2: click en "ver detalle": expande la card. */
     const boton = evento.target.closest('.producto__boton');
     if (!boton) {
         return;
@@ -317,10 +337,13 @@ const correrDemosFuncionales = (productos) => {
    init es async: primero esperamos el render (que llena productosCargados
    desde Supabase) y recien ahi corremos las demos sobre esos datos. */
 const init = async () => {
-    /* a) renderizamos las cards desde Supabase */
+    /* a) estado de sesion en la navbar (login / email + salir) */
+    pintarNavSesion();
+
+    /* b) renderizamos las cards desde Supabase */
     await renderCatalogo();
 
-    /* b) demos funcionales con los datos ya cargados */
+    /* c) demos funcionales con los datos ya cargados */
     correrDemosFuncionales(productosCargados);
 };
 
