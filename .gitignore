@@ -12,6 +12,7 @@ Desktop.ini
 
 # Claude Code
 .claude/
+.serena/
 CLAUDE.md
 
 # Logs y temporales

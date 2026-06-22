@@ -247,5 +247,39 @@ Cada commit corresponde a una etapa logica del desarrollo, alineada con la evalu
 
 ---
 
+# Parcial 2 — Supabase, roles y carrito
+
+El parcial 2 se entrega como una **serie de PRs encadenados**, uno por funcionalidad, todos contra `parcial-2`. Cada PR depende del anterior (catálogo necesita la base, admin/carrito necesitan auth).
+
+| PR | Rama | Qué incorpora |
+|---|---|---|
+| 0 | `chore/setup-supabase` | `db/schema.sql` (tablas, RLS, trigger, seed), `js/config.js`, `js/api.js`, consigna |
+| 1 | `feat/catalogo-remoto` | Catálogo leído de Supabase (reemplaza el array hardcodeado) |
+| 2 | `feat/auth-roles` | Supabase Auth (registro/login), sesión, roles y guard |
+| 3 | `feat/admin-crud` | Panel admin: crear / editar / borrar productos |
+| 4 | `feat/carrito` | Carrito por usuario + checkout (orden) |
+| 5 | `docs/cierre-parcial-2` | README, esta sección y prompts del parcial 2 |
+
+## Decisiones técnicas
+
+- **Sin SDK:** todo el acceso a Supabase es `fetch` puro contra `/rest/v1` (PostgREST) y `/auth/v1` (Auth). El wrapper `js/api.js` centraliza GET/POST/PATCH/DELETE.
+- **Dos capas de fetch:** `api.js` usa la **anon key** (lecturas públicas como el catálogo); `sesion.js` agrega `authGet/authPost/...` con el **JWT del usuario** para que RLS aplique en escrituras (admin, carrito, órdenes).
+- **Roles fuera del alcance del cliente:** el rol vive en `perfiles` y se eleva a admin solo desde Supabase; RLS (`es_admin()`) es la barrera real.
+
+## Seguridad de datos sensibles
+
+A pedido explícito, se priorizó la protección de datos:
+- Passwords gestionadas por Supabase Auth (hasheadas; nunca en tablas propias ni en `localStorage`).
+- anon key pública por diseño (apta para GitHub Pages); la `service_role` key nunca entra al repo.
+- RLS estricto por `auth.uid()` / `es_admin()`: aunque se fuerce la UI, la base rechaza accesos indebidos.
+
+## Cuando la IA se equivocó (parcial 2)
+
+1. **Heredoc de PowerShell vs Bash.** Los primeros commits se hicieron con `@'...'@` (sintaxis PowerShell) dentro del shell Bash, y los mensajes quedaron con un `@` literal y sin cuerpo multilínea. Lo detecté al revisar `git log --oneline` y lo resolví rehaciendo los commits con heredoc `<<'EOF'` correcto.
+2. **Rama base equivocada.** Se creó `feat/catalogo-remoto` desde `parcial-2`, que todavía no tenía los archivos del PR 0 (estaban sin mergear en su rama). Lo noté porque `js/config.js` no existía; lo resolví recreando la rama encadenada sobre `chore/setup-supabase`.
+3. **Auth contra plan inicial.** El plan original era "login por tabla con password plano". Tras el pedido de seguridad, se reemplazó por Supabase Auth + RLS estricto, evitando guardar contraseñas.
+
+---
+
 **Autor:** David Wuscovi (`dakovid`)
 **Materia:** Aplicaciones Web Cliente — ISTEA 2026

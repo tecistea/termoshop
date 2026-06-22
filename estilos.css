@@ -251,6 +251,19 @@ button {
     gap: var(--espacio-lg);
 }
 
+/* Estado de carga / vacio / error del catalogo (Parcial 2).
+   El grid pone 1 sola columna en mobile, asi que el mensaje ocupa todo. */
+.catalogo__estado {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--espacio-lg);
+    color: var(--color-texto-suave);
+}
+
+.catalogo__estado--error {
+    color: #b00020;
+}
+
 /* Card de producto.
    position: relative permite anclar el badge absoluto adentro (req 18).
    transition lista campos especificos (transform y box-shadow), NO usa "all" (req 19). */
@@ -609,4 +622,147 @@ button {
     .hero {
         padding: calc(var(--espacio-xl) * 2) var(--espacio-lg);
     }
+}
+
+
+/* ====================================================================
+   9. PARCIAL 2 - SESION, AUTH, ADMIN Y CARRITO
+   ==================================================================== */
+
+/* --- Estado de sesion en la navbar --- */
+.nav__sesion {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-sm);
+}
+
+.nav__sesion-email {
+    font-size: 0.85rem;
+    color: var(--color-texto-suave);
+}
+
+.nav__salir {
+    cursor: pointer;
+    border: 1px solid var(--color-texto-suave);
+    background: transparent;
+    color: var(--color-texto);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radio-sm);
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav__salir:hover {
+    background-color: var(--color-texto);
+    color: #fff;
+}
+
+/* --- Layout de paginas auth (login) --- */
+.main--auth {
+    padding-top: calc(var(--espacio-xl) * 2);
+}
+
+.auth__columnas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacio-lg);
+    justify-content: center;
+}
+
+.auth__columnas .form {
+    flex: 1 1 320px;
+    max-width: 420px;
+}
+
+.form__titulo {
+    margin-bottom: var(--espacio-md);
+    font-family: var(--fuente-titulo);
+}
+
+/* Variante de error para el <p> de mensajes (reusa .form__exito) */
+.form__exito--error {
+    color: #b00020;
+}
+
+/* --- Tabla / acciones del panel admin --- */
+.admin__acciones {
+    display: flex;
+    gap: var(--espacio-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--espacio-lg);
+}
+
+.admin__tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.admin__tabla th,
+.admin__tabla td {
+    border: 1px solid #e0e0e0;
+    padding: var(--espacio-sm);
+    text-align: left;
+}
+
+.admin__tabla th {
+    background-color: var(--color-superficie);
+}
+
+.boton--secundario {
+    background: transparent;
+    border: 1px solid var(--color-texto-suave);
+    color: var(--color-texto);
+    cursor: pointer;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radio-sm);
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+
+.boton--peligro {
+    border-color: #b00020;
+    color: #b00020;
+}
+
+/* --- Boton "agregar al carrito" en las cards del catalogo --- */
+.producto__carrito {
+    margin-top: var(--espacio-sm);
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    background-color: var(--color-primario);
+    color: #fff;
+    padding: var(--espacio-sm) var(--espacio-md);
+    border-radius: var(--radio-sm);
+    font-family: inherit;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.producto__carrito:hover {
+    filter: brightness(0.95);
+}
+
+/* --- Carrito --- */
+.carrito__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--espacio-md);
+    padding: var(--espacio-md);
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.carrito__cantidad {
+    width: 4rem;
+    padding: 0.3rem;
+}
+
+.carrito__total {
+    text-align: right;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: var(--espacio-md) 0;
 }

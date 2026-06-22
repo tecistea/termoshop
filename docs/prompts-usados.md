@@ -357,5 +357,45 @@ Mirando todo el log en retrospectiva, mi proceso evolucionó así:
 
 ---
 
+# Parcial 2 — Supabase, roles y carrito
+
+## Prompt inicial `[CC]` — Planteo del parcial 2
+
+### Contexto
+Arranqué pidiéndole a Claude Code que primero **armara el plan** antes de tocar código, dándole los requisitos de alto nivel.
+
+### Prompt
+```
+necesito crear una rama nueva, que se llame parcial-2, y vamos a hacer
+lo siguiente, armemos el plan primero, necesito armar un crud basico
+con supabase, dos roles usuarios y admin, y un carrito simple, usamos
+fetch, sin sdk, commits atomicos, y pr por funcionalidad, explicando
+brevemente, que necesitas?
+```
+
+### Reflexión
+Mucho mejor que el prompt inicial del parcial 1: di **constraints concretos** (fetch sin SDK, commits atómicos, un PR por funcionalidad) y pedí **plan antes de ejecutar**. Eso hizo que el agente hiciera preguntas de arquitectura (auth real vs tabla simple, carrito local vs en DB) en lugar de asumir.
+
+## Prompt clave `[CC]` — Seguridad de datos sensibles
+
+### Contexto
+A mitad del setup, agregué un requisito que cambió el diseño.
+
+### Prompt
+```
+importante la seguridad de datos sensibles
+```
+
+### Reflexión
+Un prompt corto pero de alto impacto. Obligó a revisar decisiones ya tomadas: se descartó "login por tabla con password plano" y se pasó a **Supabase Auth + RLS estricto**. Aprendizaje: conviene declarar los requisitos no-funcionales (seguridad) **antes** de planificar, porque reescriben la arquitectura. También me sirvió para entender que en un sitio estático (GitHub Pages) la anon key **siempre** es pública y la seguridad real está en RLS, no en ocultar la clave.
+
+## Lo que funcionó del workflow
+
+- Pedir el **plan primero** y responder las preguntas de arquitectura redujo retrabajo.
+- Constraints explícitos (sin SDK, commits atómicos, PR por feature) dieron un historial de PRs limpio y evaluable.
+- Inyectar el requisito de seguridad, aunque tarde, se absorbió bien porque el plan todavía no estaba implementado.
+
+---
+
 **Autor:** David Wuscovi (`dakovid`)
 **Materia:** Aplicaciones Web Cliente — ISTEA 2026

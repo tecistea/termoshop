@@ -1,8 +1,9 @@
 # termoshop
 
-Ecommerce educativo de termos (Stanley, Lumilagro, Waicom, Termolar) construido como entrega del **Parcial 1 de Aplicaciones Web Cliente — ISTEA 2026**.
+Ecommerce educativo de termos (Stanley, Lumilagro, Waicom, Termolar) de **Aplicaciones Web Cliente — ISTEA 2026**.
 
-Catalogo + detalle + contacto + ubicacion. Sin carrito ni checkout (fuera del alcance del parcial).
+- **Parcial 1:** catálogo + detalle + contacto + ubicación (vanilla puro, datos hardcodeados).
+- **Parcial 2:** backend con **Supabase** — CRUD de productos, autenticación con roles y carrito de compras (ver [sección Parcial 2](#parcial-2--supabase-roles-y-carrito)).
 
 ## Tecnologias
 
@@ -103,6 +104,68 @@ Las imagenes de `productos-imagenes/` fueron descargadas desde sitios oficiales/
 - [x] `formatearPrecio` arrow con `Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' })`
 - [x] Demos: `.map`, `.filter`, `.find`, `.reduce`, `filter + map` y `filter + reduce` encadenados
 - [x] `console.table(PRODUCTOS)`
+
+---
+
+# Parcial 2 — Supabase, roles y carrito
+
+El parcial 2 evoluciona el proyecto a un ecommerce con **backend real (Supabase)** manteniendo el stack vanilla: **todo el acceso al backend es vía `fetch` a la REST/Auth API de Supabase, sin SDK**.
+
+Consigna completa: [docs/consigna-parcial-2.md](docs/consigna-parcial-2.md).
+
+## Qué se agregó
+
+- **CRUD de productos** persistido en Supabase (el catálogo deja de estar hardcodeado).
+- **Autenticación** con Supabase Auth y **dos roles** (`usuario`, `admin`).
+- **Carrito de compras** por usuario + **checkout** que genera una orden.
+
+### Páginas nuevas
+
+| Página | Para qué |
+|---|---|
+| `index.html` | Catálogo (ahora desde Supabase) + botón "Agregar al carrito" |
+| `login.html` | Registro e inicio de sesión |
+| `admin.html` | Panel CRUD de productos (solo admin) |
+| `carrito.html` | Carrito del usuario + checkout |
+
+### Archivos JS nuevos (`js/`)
+
+- `config.js` — URL y anon key de Supabase.
+- `api.js` — wrapper `fetch` sobre la REST (anon key).
+- `sesion.js` — auth, sesión, guard de roles y `fetch` autenticado (JWT del usuario).
+- `login.js`, `admin.js`, `carrito.js` — lógica de cada página.
+
+## Puesta en marcha (Supabase)
+
+1. Crear un proyecto en [supabase.com](https://supabase.com).
+2. **SQL Editor → New query** → pegar y correr [db/schema.sql](db/schema.sql) (crea tablas, RLS, trigger y seed de los 6 termos).
+3. En `js/config.js`, poner tu `SUPABASE_URL` y tu **anon key** (Project Settings → API).
+4. Abrir el sitio con **Live Server** (no `file://`, por CORS).
+
+### Crear un admin
+
+1. Registrarse desde `login.html` con el email que será admin.
+2. En el SQL Editor de Supabase:
+   ```sql
+   update perfiles set rol = 'admin' where email = 'tu-email@ejemplo.com';
+   ```
+3. Volver a iniciar sesión: ya verás el link **Admin** en la navbar.
+
+> El rol **no se puede cambiar desde la app** (lo protege RLS): se eleva a admin solo desde Supabase.
+
+## Seguridad de datos sensibles
+
+- **Contraseñas:** las gestiona **Supabase Auth** (hasheadas en el servidor). La app **nunca** las guarda ni las pone en tablas propias.
+- **anon key:** es **pública por diseño** y, en un deploy estático (GitHub Pages), inevitablemente visible. No es un secreto. La `service_role` key **jamás** debe estar en el cliente ni en el repo.
+- **RLS estricto:** cada usuario solo accede a **su** carrito y **sus** órdenes (`auth.uid()`); el CRUD de productos exige rol admin verificado en la base (`es_admin()`). Aunque alguien fuerce la UI, la base rechaza la operación.
+
+> Deuda asumida (educativa): el rol llega al cliente y la UI confía en él para mostrar/ocultar el panel admin. La defensa de fondo está en RLS, no en el front.
+
+## Despliegue en GitHub Pages
+
+Al ser un sitio estático, se puede publicar en **GitHub Pages** (Settings → Pages → rama y carpeta raíz). La anon key viaja al cliente (es correcto); la seguridad la sostienen Supabase Auth + RLS.
+
+---
 
 ## Regenerar imagenes
 
