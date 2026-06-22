@@ -317,10 +317,13 @@ const correrDemosFuncionales = (productos) => {
    init es async: primero esperamos el render (que llena productosCargados
    desde Supabase) y recien ahi corremos las demos sobre esos datos. */
 const init = async () => {
-    /* a) renderizamos las cards desde Supabase */
+    /* a) estado de sesion en la navbar (login / email + salir) */
+    pintarNavSesion();
+
+    /* b) renderizamos las cards desde Supabase */
     await renderCatalogo();
 
-    /* b) demos funcionales con los datos ya cargados */
+    /* c) demos funcionales con los datos ya cargados */
     correrDemosFuncionales(productosCargados);
 };
 
