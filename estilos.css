@@ -251,6 +251,19 @@ button {
     gap: var(--espacio-lg);
 }
 
+/* Estado de carga / vacio / error del catalogo (Parcial 2).
+   El grid pone 1 sola columna en mobile, asi que el mensaje ocupa todo. */
+.catalogo__estado {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--espacio-lg);
+    color: var(--color-texto-suave);
+}
+
+.catalogo__estado--error {
+    color: #b00020;
+}
+
 /* Card de producto.
    position: relative permite anclar el badge absoluto adentro (req 18).
    transition lista campos especificos (transform y box-shadow), NO usa "all" (req 19). */
