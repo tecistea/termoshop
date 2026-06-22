@@ -107,6 +107,52 @@ const iniciarSesion = async (email, password) => {
 };
 
 
+/* ====== FETCH AUTENTICADO ======
+   Las operaciones que RLS protege (CRUD de productos, carrito, ordenes)
+   deben ir con el JWT del usuario, NO con la anon key. Estos helpers son
+   como los de api.js pero mandan Authorization: Bearer <token del usuario>.
+   Asi la base aplica las policies por auth.uid() / es_admin(). */
+
+const headersAuth = () => {
+    const sesion = obtenerSesion();
+    return {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${sesion ? sesion.token : SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+    };
+};
+
+const manejarRespuestaAuth = async (respuesta) => {
+    if (!respuesta.ok) {
+        const detalle = await respuesta.text();
+        throw new Error(`Supabase ${respuesta.status}: ${detalle}`);
+    }
+    if (respuesta.status === 204) {
+        return null;
+    }
+    return respuesta.json();
+};
+
+const authGet = async (tabla, query = '?select=*') =>
+    manejarRespuestaAuth(await fetch(`${SUPABASE_REST}/${tabla}${query}`, { headers: headersAuth() }));
+
+const authPost = async (tabla, body) =>
+    manejarRespuestaAuth(await fetch(`${SUPABASE_REST}/${tabla}`, {
+        method: 'POST', headers: headersAuth(), body: JSON.stringify(body)
+    }));
+
+const authPatch = async (tabla, query, body) =>
+    manejarRespuestaAuth(await fetch(`${SUPABASE_REST}/${tabla}${query}`, {
+        method: 'PATCH', headers: headersAuth(), body: JSON.stringify(body)
+    }));
+
+const authDelete = async (tabla, query) =>
+    manejarRespuestaAuth(await fetch(`${SUPABASE_REST}/${tabla}${query}`, {
+        method: 'DELETE', headers: headersAuth()
+    }));
+
+
 /* ====== GUARD DE ROLES ======
    requerirSesion: si no hay sesion, manda a login. Devuelve la sesion.
    requerirAdmin: ademas exige rol admin; si no, vuelve al inicio.
