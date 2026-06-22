@@ -726,6 +726,25 @@ button {
     color: #b00020;
 }
 
+/* --- Boton "agregar al carrito" en las cards del catalogo --- */
+.producto__carrito {
+    margin-top: var(--espacio-sm);
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    background-color: var(--color-primario);
+    color: #fff;
+    padding: var(--espacio-sm) var(--espacio-md);
+    border-radius: var(--radio-sm);
+    font-family: inherit;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.producto__carrito:hover {
+    filter: brightness(0.95);
+}
+
 /* --- Carrito --- */
 .carrito__item {
     display: flex;
