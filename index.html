@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="estilos.css">
 
     <!-- JS con defer: se descarga en paralelo pero se ejecuta despues del parseo del HTML.
-         Asi no necesitamos DOMContentLoaded y el render no se bloquea. -->
+         Asi no necesitamos DOMContentLoaded y el render no se bloquea.
+         Orden importa: config (claves) -> api (wrapper fetch) -> app (logica). -->
+    <script src="js/config.js" defer></script>
+    <script src="js/api.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 <body>
@@ -68,7 +71,7 @@
         <section id="catalogo" class="seccion seccion--catalogo">
             <h2 class="seccion__titulo">Nuestro catalogo</h2>
             <p class="seccion__intro">
-                Seis termos seleccionados, todos con garantia oficial y stock real en Argentina.
+                Termos seleccionados, todos con garantia oficial y stock real en Argentina.
             </p>
 
             <!-- Contenedor del grid. JS lo rellena con <article> por producto. -->
