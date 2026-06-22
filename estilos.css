@@ -766,3 +766,48 @@ button {
     font-weight: 600;
     margin: var(--espacio-md) 0;
 }
+
+/* --- Ordenes (historial) --- */
+.orden {
+    border: 1px solid #e0e0e0;
+    border-radius: var(--radio-sm);
+    padding: var(--espacio-md);
+    margin-bottom: var(--espacio-md);
+    background-color: var(--color-superficie);
+}
+
+.orden__cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacio-sm);
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--espacio-sm);
+}
+
+.orden__id {
+    font-weight: 600;
+}
+
+.orden__fecha {
+    color: var(--color-texto-suave);
+    font-size: 0.85rem;
+}
+
+.orden__total {
+    font-weight: 600;
+    color: var(--color-primario);
+}
+
+.orden__usuario {
+    font-size: 0.8rem;
+    color: var(--color-texto-suave);
+    word-break: break-all;
+    margin-bottom: var(--espacio-sm);
+}
+
+.orden__items {
+    list-style: disc;
+    padding-left: var(--espacio-lg);
+    font-size: 0.9rem;
+}

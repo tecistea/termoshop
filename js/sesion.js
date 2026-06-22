@@ -221,6 +221,13 @@ const pintarNavSesion = () => {
     carrito.textContent = 'Carrito';
     contenedor.append(carrito);
 
+    /* Link a ordenes (historial propio; el admin ve todas) */
+    const ordenes = document.createElement('a');
+    ordenes.href = 'ordenes.html';
+    ordenes.className = 'nav__link';
+    ordenes.textContent = 'Ordenes';
+    contenedor.append(ordenes);
+
     /* Boton salir */
     const salir = document.createElement('button');
     salir.type = 'button';
