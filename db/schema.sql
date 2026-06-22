@@ -152,7 +152,7 @@ create policy "carrito propio"
     with check (usuario_id = auth.uid());
 
 -- --- ordenes ---
--- Cada usuario ve/crea SOLO sus propias ordenes.
+-- Cada usuario ve/crea SOLO sus propias ordenes...
 create policy "ordenes propias - leer"
     on ordenes for select to authenticated
     using (usuario_id = auth.uid());
@@ -160,6 +160,13 @@ create policy "ordenes propias - leer"
 create policy "ordenes propias - crear"
     on ordenes for insert to authenticated
     with check (usuario_id = auth.uid());
+
+-- ...y el admin puede leer TODAS las ordenes (panel de ventas).
+-- es_admin() verifica el rol en la base, asi que esto no se puede
+-- falsear desde el cliente.
+create policy "ordenes - admin lee todas"
+    on ordenes for select to authenticated
+    using (es_admin());
 
 
 -- ====================================================================
