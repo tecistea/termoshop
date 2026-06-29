@@ -693,8 +693,16 @@ button {
     margin-bottom: var(--espacio-lg);
 }
 
+/* Contenedor con scroll horizontal: evita que la tabla desborde la pagina
+   en pantallas angostas. La tabla conserva un ancho minimo legible. */
+.admin__tabla-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
 .admin__tabla {
     width: 100%;
+    min-width: 640px;
     border-collapse: collapse;
     font-size: 0.9rem;
 }
@@ -704,6 +712,7 @@ button {
     border: 1px solid #e0e0e0;
     padding: var(--espacio-sm);
     text-align: left;
+    white-space: nowrap;
 }
 
 .admin__tabla th {
