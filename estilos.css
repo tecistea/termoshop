@@ -136,6 +136,58 @@ button {
     padding: 0 var(--espacio-md);
 }
 
+/* ====== MENU RESPONSIVE (hamburguesa) ======
+   .nav__menu agrupa los links (.nav__lista) y el estado de sesion
+   (.nav__sesion). En desktop es una fila; en mobile se colapsa en un panel
+   desplegable controlado por .nav__toggle. */
+.nav__menu {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-lg);
+}
+
+/* Boton hamburguesa: oculto en desktop, visible en mobile (ver media query).
+   Tres barras hechas con spans; al abrir se transforman en una X. */
+.nav__toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.nav__toggle-barra {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 0 auto;
+    background-color: var(--color-primario);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Estado abierto: la barra de arriba y abajo rotan formando una X,
+   la del medio se desvanece. */
+.nav__toggle--activo .nav__toggle-barra:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav__toggle--activo .nav__toggle-barra:nth-child(2) {
+    opacity: 0;
+}
+.nav__toggle--activo .nav__toggle-barra:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav__toggle:focus-visible {
+    outline: 2px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
 .nav__logo {
     font-family: var(--fuente-titulo);
     font-weight: 700;
@@ -559,6 +611,11 @@ button {
         flex-direction: column;
         align-items: stretch;
     }
+    /* al apilar en columna, anulamos el margin-left horizontal para que no
+       desalinee (el contenedor ya separa con gap). */
+    .detalle__acciones .btn + .btn {
+        margin-left: 0;
+    }
 }
 
 /* 2 columnas desde tablet */
@@ -971,6 +1028,79 @@ button {
    Estrategia min-width: el base es mobile y vamos sumando reglas para pantallas
    mas grandes. Esto da CSS mas chico y prioriza el dispositivo mas restrictivo. */
 
+/* Mobile: < 768px -> menu colapsado con hamburguesa.
+   El nav base es fila (desktop-friendly); aca activamos el panel mobile. */
+@media (max-width: 767px) {
+    /* Mostramos el boton hamburguesa */
+    .nav__toggle {
+        display: flex;
+    }
+
+    /* El menu pasa a panel desplegable: se posiciona bajo la navbar fixed,
+       ocupa el ancho y arranca oculto (colapsado). */
+    .nav__menu {
+        position: fixed;
+        top: var(--altura-nav);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--espacio-sm) var(--espacio-md) var(--espacio-md);
+        background-color: var(--color-superficie);
+        box-shadow: var(--sombra-nav);
+        /* Colapsado: sin alto y recortado. La transicion da el efecto de
+           desplegado suave. */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav__menu--abierto {
+        /* alto suficiente para todos los items (links + sesion completa) */
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* Links y sesion se apilan a lo ancho, con buena area de toque */
+    .nav__lista {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+
+    .nav__lista li {
+        border-bottom: 1px solid var(--color-borde);
+    }
+
+    .nav__link {
+        width: 100%;
+        min-height: 48px;
+        padding: var(--espacio-sm);
+    }
+
+    .nav__sesion {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: var(--espacio-sm);
+        padding-top: var(--espacio-sm);
+    }
+
+    /* Con el email ya en su propia fila del panel, puede mostrarse completo */
+    .nav__sesion-email {
+        max-width: none;
+        white-space: normal;
+        word-break: break-all;
+        padding: var(--espacio-xs) var(--espacio-sm);
+    }
+
+    /* El boton "Salir" y demas ocupan el ancho del panel */
+    .nav__sesion .btn {
+        width: 100%;
+    }
+}
+
 /* Tablet: >= 768px */
 @media (min-width: 768px) {
     .catalogo {
@@ -1085,16 +1215,60 @@ button {
     border: 1px solid #e0e0e0;
     padding: var(--espacio-sm);
     text-align: left;
+    /* alinea verticalmente el contenido de la celda (util cuando la fila
+       crece por los botones de la columna Acciones). */
+    vertical-align: middle;
     white-space: nowrap;
 }
 
 .admin__tabla th {
     background-color: var(--color-superficie);
+    /* el encabezado hereda la alineacion de su columna (ver reglas nth-child) */
 }
 
-/* Los botones de fila (editar/borrar/quitar) usan .btn .btn--secundario /
-   .btn--peligro; solo separamos los que van juntos en una fila. */
-.btn + .btn {
+/* Columnas numericas (ID, Precio, Stock) alineadas a la derecha: es la
+   convencion para numeros y facilita compararlos de un vistazo.
+   Orden de columnas: 1=ID, 2=Nombre, 3=Marca, 4=Precio, 5=Stock, 6=Acciones. */
+.admin__tabla th:nth-child(1),
+.admin__tabla td:nth-child(1),
+.admin__tabla th:nth-child(4),
+.admin__tabla td:nth-child(4),
+.admin__tabla th:nth-child(5),
+.admin__tabla td:nth-child(5) {
+    text-align: right;
+    /* tabular-nums: los digitos ocupan el mismo ancho, columnas prolijas */
+    font-variant-numeric: tabular-nums;
+}
+
+/* Columna de acciones (ultima) centrada, con los botones agrupados */
+.admin__tabla th:last-child,
+.admin__tabla td:last-child {
+    text-align: center;
+}
+
+/* Los botones de accion no deben estirarse ni bajar de linea dentro de la
+   celda: los mantenemos en una fila centrada y comoda. */
+.admin__tabla td:last-child {
+    display: flex;
+    gap: var(--espacio-xs);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Ya separamos con gap: anulamos el margin-left de .btn + .btn para no
+   sumar un espacio extra desparejo. */
+.admin__tabla td:last-child .btn + .btn {
+    margin-left: 0;
+}
+
+/* Los botones de fila (editar/borrar/quitar en la tabla admin) usan
+   .btn .btn--secundario / .btn--peligro; solo separamos los que van juntos
+   en una fila.
+   IMPORTANTE: excluimos los .btn--bloque (ancho completo, apilados en las
+   cards y el detalle), porque ahi el contenedor ya usa `gap` y el
+   margin-left los corria a la derecha, desalineandolos respecto al boton
+   de arriba. */
+.btn + .btn:not(.btn--bloque) {
     margin-left: 0.3rem;
 }
 
