@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="Contacto de termoshop: formulario de consultas, email, direccion del showroom en CABA y ubicacion en el mapa.">
+    <meta name="description" content="Contacto de termoshop: formulario de consultas, email, dirección del showroom en CABA y ubicación en el mapa.">
     <meta name="author" content="David Wuscovi - ISTEA 2026">
 
     <title>termoshop - Contacto</title>
@@ -13,26 +13,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
 
-    <link rel="stylesheet" href="estilos.css?v=b3bd706">
+    <link rel="stylesheet" href="estilos.css?v=c749ba1">
 
     <!-- Orden: config -> api -> utils -> sesion -> footer -> contacto -->
-    <script src="js/config.js?v=b3bd706" defer></script>
-    <script src="js/api.js?v=b3bd706" defer></script>
-    <script src="js/utils.js?v=b3bd706" defer></script>
-    <script src="js/toast.js?v=b3bd706" defer></script>
-    <script src="js/nav.js?v=b3bd706" defer></script>
-    <script src="js/sesion.js?v=b3bd706" defer></script>
-    <script src="js/footer.js?v=b3bd706" defer></script>
-    <script src="js/contacto.js?v=b3bd706" defer></script>
+    <script src="js/config.js?v=c749ba1" defer></script>
+    <script src="js/api.js?v=c749ba1" defer></script>
+    <script src="js/utils.js?v=c749ba1" defer></script>
+    <script src="js/toast.js?v=c749ba1" defer></script>
+    <script src="js/nav.js?v=c749ba1" defer></script>
+    <script src="js/sesion.js?v=c749ba1" defer></script>
+    <script src="js/footer.js?v=c749ba1" defer></script>
+    <script src="js/contacto.js?v=c749ba1" defer></script>
 </head>
 <body>
 
     <!-- ====== HEADER + NAVBAR ====== -->
     <header class="cabecera">
-        <nav class="nav" aria-label="Navegacion principal">
+        <nav class="nav" aria-label="Navegación principal">
             <a href="index.html" class="nav__logo">termoshop</a>
 
-            <button type="button" class="nav__toggle" aria-label="Abrir menu"
+            <button type="button" class="nav__toggle" aria-label="Abrir menú"
                     aria-expanded="false" aria-controls="nav-menu">
                 <span class="nav__toggle-barra"></span>
                 <span class="nav__toggle-barra"></span>
@@ -42,7 +42,7 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__lista">
                     <li><a href="index.html" class="nav__link">Inicio</a></li>
-                    <li><a href="index.html#catalogo" class="nav__link">Catalogo</a></li>
+                    <li><a href="index.html#catalogo" class="nav__link">Catálogo</a></li>
                     <li><a href="contacto.html" class="nav__link activa">Contacto</a></li>
                 </ul>
 
@@ -60,7 +60,7 @@
         <section id="contacto" class="seccion seccion--contacto">
             <h2 class="seccion__titulo">Contactanos</h2>
             <p class="seccion__intro">
-                Consultas sobre stock, envios o garantia. Respondemos en menos de 24 hs.
+                Consultas sobre stock, envíos o garantía. Respondemos en menos de 24 hs.
             </p>
 
             <!-- Datos de contacto directos -->
@@ -69,7 +69,7 @@
                     <strong>Email:</strong>
                     <a href="mailto:info@termoshop.ar" class="contacto__link">info@termoshop.ar</a>
                 </li>
-                <li><strong>Direccion:</strong> Av. Belgrano 723, CABA</li>
+                <li><strong>Dirección:</strong> Av. Belgrano 723, CABA</li>
                 <li><strong>Horario:</strong> Lunes a viernes, con turno previo.</li>
             </ul>
 
@@ -82,7 +82,7 @@
                         id="input-nombre"
                         name="nombre"
                         class="form__input"
-                        placeholder="Ej: Juan Perez"
+                        placeholder="Ej: Juan Pérez"
                         required
                         minlength="2"
                         maxlength="50"
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="form__campo">
-                    <label for="input-telefono" class="form__label">Telefono</label>
+                    <label for="input-telefono" class="form__label">Teléfono</label>
                     <!-- pattern: solo numeros, entre 10 y 15 digitos (cubre celular AR con/sin prefijo) -->
                     <input
                         type="tel"
@@ -119,10 +119,10 @@
                 <div class="form__campo">
                     <label for="input-asunto" class="form__label">Asunto</label>
                     <select id="input-asunto" name="asunto" class="form__input" required>
-                        <option value="">Elegi un motivo</option>
+                        <option value="">Elegí un motivo</option>
                         <option value="stock">Consulta de stock</option>
-                        <option value="envio">Envio a domicilio</option>
-                        <option value="garantia">Garantia / posventa</option>
+                        <option value="envio">Envío a domicilio</option>
+                        <option value="garantia">Garantía / posventa</option>
                         <option value="mayorista">Venta mayorista</option>
                     </select>
                 </div>
@@ -133,7 +133,7 @@
                         id="input-mensaje"
                         name="mensaje"
                         class="form__input form__input--textarea"
-                        placeholder="Contanos en que podemos ayudarte..."
+                        placeholder="Contanos en qué podemos ayudarte..."
                         required
                         minlength="10"
                         maxlength="500"
@@ -149,7 +149,7 @@
                             name="terminos"
                             class="form__checkbox"
                             required>
-                        <span>Acepto los terminos y condiciones</span>
+                        <span>Acepto los términos y condiciones</span>
                     </label>
                 </div>
 
@@ -165,14 +165,14 @@
         <!-- ====== UBICACION ======
              Section con iframe de Google Maps. El iframe DEBE tener title (req 9). -->
         <section id="ubicacion" class="seccion seccion--ubicacion">
-            <h2 class="seccion__titulo">Donde encontrarnos</h2>
+            <h2 class="seccion__titulo">Dónde encontrarnos</h2>
             <p class="seccion__intro">
-                Showroom en CABA. Atencion con turno previo de lunes a viernes.
+                Showroom en CABA. Atención con turno previo de lunes a viernes.
             </p>
 
             <div class="mapa">
                 <iframe
-                    title="Mapa de ubicacion del showroom de termoshop en Av. Belgrano 723, CABA"
+                    title="Mapa de ubicación del showroom de termoshop en Av. Belgrano 723, CABA"
                     src="https://www.google.com/maps?q=Av.+Belgrano+723,+CABA&output=embed"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"

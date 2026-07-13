@@ -142,7 +142,7 @@ const iniciarAdmin = () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } else if (boton.dataset.accion === 'borrar') {
-            if (!confirm('Seguro que queres borrar este producto?')) {
+            if (!confirm('¿Seguro que querés borrar este producto?')) {
                 return;
             }
             try {

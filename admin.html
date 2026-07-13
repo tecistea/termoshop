@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Panel de administracion de productos de termoshop.">
+    <meta name="description" content="Panel de administración de productos de termoshop.">
     <title>termoshop - Admin</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="estilos.css?v=b3bd706">
+    <link rel="stylesheet" href="estilos.css?v=c749ba1">
 
-    <script src="js/config.js?v=b3bd706" defer></script>
-    <script src="js/api.js?v=b3bd706" defer></script>
-    <script src="js/utils.js?v=b3bd706" defer></script>
-    <script src="js/toast.js?v=b3bd706" defer></script>
-    <script src="js/nav.js?v=b3bd706" defer></script>
-    <script src="js/sesion.js?v=b3bd706" defer></script>
-    <script src="js/footer.js?v=b3bd706" defer></script>
-    <script src="js/admin.js?v=b3bd706" defer></script>
+    <script src="js/config.js?v=c749ba1" defer></script>
+    <script src="js/api.js?v=c749ba1" defer></script>
+    <script src="js/utils.js?v=c749ba1" defer></script>
+    <script src="js/toast.js?v=c749ba1" defer></script>
+    <script src="js/nav.js?v=c749ba1" defer></script>
+    <script src="js/sesion.js?v=c749ba1" defer></script>
+    <script src="js/footer.js?v=c749ba1" defer></script>
+    <script src="js/admin.js?v=c749ba1" defer></script>
 </head>
 <body>
 
     <header class="cabecera">
-        <nav class="nav" aria-label="Navegacion principal">
+        <nav class="nav" aria-label="Navegación principal">
             <a href="index.html" class="nav__logo">termoshop</a>
-            <button type="button" class="nav__toggle" aria-label="Abrir menu"
+            <button type="button" class="nav__toggle" aria-label="Abrir menú"
                     aria-expanded="false" aria-controls="nav-menu">
                 <span class="nav__toggle-barra"></span>
                 <span class="nav__toggle-barra"></span>
@@ -43,8 +43,8 @@
 
     <main class="main">
         <section class="seccion">
-            <h1 class="seccion__titulo">Panel de administracion</h1>
-            <p class="seccion__intro">Gestion de productos del catalogo. Solo administradores.</p>
+            <h1 class="seccion__titulo">Panel de administración</h1>
+            <p class="seccion__intro">Gestión de productos del catálogo. Solo administradores.</p>
 
             <!-- ====== FORMULARIO DE ALTA / EDICION ======
                  El mismo form sirve para crear y editar. Cuando se edita, JS
@@ -89,13 +89,13 @@
                     <input type="text" id="p-imagen" class="form__input" placeholder="productos-imagenes/...webp">
                 </div>
                 <div class="form__campo">
-                    <label for="p-descripcion" class="form__label">Descripcion</label>
+                    <label for="p-descripcion" class="form__label">Descripción</label>
                     <textarea id="p-descripcion" class="form__input form__input--textarea" rows="3"></textarea>
                 </div>
 
                 <div class="admin__acciones">
                     <button type="submit" class="btn btn--primario btn--grande form__boton">Guardar</button>
-                    <button type="button" id="btn-cancelar" class="btn btn--secundario" hidden>Cancelar edicion</button>
+                    <button type="button" id="btn-cancelar" class="btn btn--secundario" hidden>Cancelar edición</button>
                 </div>
                 <p id="admin-mensaje" class="form__exito" hidden></p>
             </form>
