@@ -41,7 +41,7 @@ COLOR_TEXTO = "#FFFFFF"
 COLORES_MARCA = {
     "Stanley": COLOR_VERDE_STANLEY,
     "Lumilagro": COLOR_DORADO,
-    "Waicom": COLOR_VERDE_STANLEY,
+    "Peabody": COLOR_VERDE_STANLEY,
     "Termolar": COLOR_DORADO,
 }
 
@@ -77,11 +77,11 @@ PRODUCTOS = [
         "url": "https://www.lumilagro.com.ar/wp-content/uploads/2020/12/terraverde1-800x800.jpg",
     },
     {
-        "marca": "Waicom",
-        "nombre": "Premium 1L",
-        "archivo": "waicom-premium-1l.webp",
-        # Marca regional sin presencia online: usa placeholder generado.
-        "url": None,
+        "marca": "Peabody",
+        "nombre": "eTermo Acero 1L",
+        "archivo": "peabody-etermo-1l.webp",
+        # gustoargentino.com (Shopify CDN): eTermo Peabody de acero, fondo blanco.
+        "url": "https://shop.gustoargentino.com/cdn/shop/files/e-termo-peabody-plata.png?v=1741175457&width=1200",
     },
     {
         "marca": "Termolar",
