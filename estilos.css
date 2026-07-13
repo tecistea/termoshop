@@ -407,21 +407,73 @@ button {
     color: var(--color-texto-suave);
 }
 
-.producto__descripcion {
-    /* arranca oculto, se expande al togglear .expandida con classList */
-    display: none;
-    margin-top: var(--espacio-sm);
-    color: var(--color-texto-suave);
-}
-
-.producto.expandida .producto__descripcion {
-    display: block;
-}
-
 /* "Ver detalle" y "Agregar al carrito" usan .btn; estas clases solo aportan
    el espaciado dentro de la card. */
 .producto__boton {
     margin-top: var(--espacio-sm);
+}
+
+/* ====== DETALLE DE PRODUCTO (producto.html) ======
+   Layout 2 columnas (imagen + info) en desktop, 1 columna en mobile.
+   Reutiliza tokens y clases de card (.producto__marca, .producto__meta...). */
+.detalle {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espacio-xl);
+    align-items: start;
+}
+
+.detalle__media {
+    position: relative;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-card);
+    padding: var(--espacio-lg);
+}
+
+.detalle__imagen {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.detalle__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.detalle__nombre {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-texto);
+}
+
+.detalle__precio {
+    font-family: var(--fuente-titulo);
+    font-size: 2rem;
+    color: var(--color-primario);
+    font-weight: 700;
+}
+
+.detalle__descripcion {
+    color: var(--color-texto-suave);
+    line-height: 1.7;
+    margin-top: var(--espacio-sm);
+}
+
+.detalle__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacio-sm);
+    margin-top: var(--espacio-md);
+}
+
+/* 2 columnas desde tablet */
+@media (min-width: 768px) {
+    .detalle {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 /* Badge: position absolute respecto al .producto relative (req 18).

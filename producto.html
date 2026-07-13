@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Detalle de producto de termoshop: precio, capacidad, material, stock y descripcion completa del termo.">
+    <meta name="author" content="David Wuscovi - ISTEA 2026">
+
+    <title>termoshop - Detalle de producto</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+
+    <link rel="stylesheet" href="estilos.css">
+
+    <!-- Orden: config -> api -> utils -> sesion -> carrito -> footer -> producto -->
+    <script src="js/config.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/sesion.js" defer></script>
+    <script src="js/carrito.js" defer></script>
+    <script src="js/footer.js" defer></script>
+    <script src="js/producto.js" defer></script>
+</head>
+<body>
+
+    <!-- ====== HEADER + NAVBAR ====== -->
+    <header class="cabecera">
+        <nav class="nav" aria-label="Navegacion principal">
+            <a href="index.html" class="nav__logo">termoshop</a>
+
+            <ul class="nav__lista">
+                <li><a href="index.html" class="nav__link">Inicio</a></li>
+                <li><a href="index.html#catalogo" class="nav__link">Catalogo</a></li>
+                <li><a href="contacto.html" class="nav__link">Contacto</a></li>
+            </ul>
+
+            <!-- Estado de sesion (login / email + salir). Lo pinta sesion.js -->
+            <div class="nav__sesion" id="nav-sesion"></div>
+        </nav>
+    </header>
+
+    <main class="main">
+
+        <!-- ====== DETALLE ======
+             Contenedor que js/producto.js rellena segun ?id=N de la URL:
+             estado de carga, detalle del producto, o mensaje de error. -->
+        <section class="seccion">
+            <div id="detalle-producto">
+                <!-- El detalle se inyecta desde js/producto.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer unico inyectado por js/footer.js -->
+    <footer class="pie" id="pie"></footer>
+
+</body>
+</html>

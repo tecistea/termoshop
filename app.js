@@ -75,20 +75,22 @@ const crearCard = (producto) => {
     /* Cuerpo de la card */
     const cuerpo = crearElemento('div', 'producto__cuerpo');
 
+    /* La descripcion completa se muestra en producto.html; en la card solo
+       van los datos resumidos. */
     cuerpo.append(
         crearElemento('span', 'producto__marca', producto.marca),
         crearElemento('h3', 'producto__nombre', producto.nombre),
         crearElemento('p', 'producto__meta', `${producto.capacidad} - ${producto.material}`),
         crearElemento('p', 'producto__precio', formatearPrecio(producto.precio)),
-        crearElemento('p', 'producto__stock', `Stock disponible: ${producto.stock} unidades`),
-        crearElemento('p', 'producto__descripcion', producto.descripcion)
+        crearElemento('p', 'producto__stock', `Stock disponible: ${producto.stock} unidades`)
     );
 
     /* Boton "ver detalle": tambien tiene dataset.id (req 26) para que
        el listener delegado lo identifique con closest(). */
-    const boton = crearElemento('button', 'btn btn--primario producto__boton', 'Ver detalle');
-    boton.type = 'button';
-    boton.dataset.id = producto.id;
+    /* "Ver detalle": link a la pagina de detalle con el id en la URL.
+       Antes era un boton que expandia la card; ahora navega a producto.html. */
+    const boton = crearElemento('a', 'btn btn--primario producto__boton', 'Ver detalle');
+    boton.href = `producto.html?id=${producto.id}`;
     cuerpo.append(boton);
 
     /* Boton "agregar al carrito" (Parcial 2). El listener delegado lo
@@ -144,32 +146,20 @@ const renderCatalogo = async () => {
 /* ====== 5. HANDLERS ====== */
 
 /* Handler delegado del catalogo: un solo listener en el contenedor (req 28).
-   closest() sube por el DOM hasta encontrar un elemento con data-id.
-   Si el click cayo fuera de un boton/card, closest devuelve null y salimos. */
+   closest() sube por el DOM hasta encontrar el boton de carrito.
+   "Ver detalle" ya no pasa por aca: es un link a producto.html. */
 const handlerCatalogo = (evento) => {
-    /* Caso 1: click en "agregar al carrito" (Parcial 2). */
+    /* Click en "agregar al carrito": upsert del item (Parcial 2). */
     const botonCarrito = evento.target.closest('.producto__carrito');
-    if (botonCarrito) {
-        const idProducto = Number(botonCarrito.dataset.id);
-        /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
-        agregarAlCarrito(idProducto).catch((error) => {
-            console.error('No se pudo agregar al carrito:', error);
-            alert('No se pudo agregar al carrito. Intenta de nuevo.');
-        });
+    if (!botonCarrito) {
         return;
     }
-
-    /* Caso 2: click en "ver detalle": expande la card. */
-    const boton = evento.target.closest('.producto__boton');
-    if (!boton) {
-        return;
-    }
-    const idProducto = Number(boton.dataset.id);
-    const card = boton.closest('.producto');
-    /* classList.toggle: si esta la clase la saca, si no la pone (req 25) */
-    card.classList.toggle('expandida');
-    const producto = productosCargados.find((p) => p.id === idProducto);
-    console.log('Detalle clickeado:', producto);
+    const idProducto = Number(botonCarrito.dataset.id);
+    /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
+    agregarAlCarrito(idProducto).catch((error) => {
+        console.error('No se pudo agregar al carrito:', error);
+        alert('No se pudo agregar al carrito. Intenta de nuevo.');
+    });
 };
 
 /* Handler de los links del nav: marca el link clickeado como activo */
