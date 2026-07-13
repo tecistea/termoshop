@@ -623,22 +623,67 @@ button {
     border: 0;
 }
 
-/* Imagen destacada */
-.destacado {
-    margin-top: var(--espacio-lg);
-    text-align: center;
+/* ====== CARRUSEL DE DESTACADOS (home) ======
+   Pista con scroll horizontal + scroll-snap; flechas a los costados.
+   En mobile el usuario ademas puede deslizar con el dedo (swipe nativo). */
+.carrusel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-sm);
 }
 
-.destacado img {
-    max-width: 20rem;
-    margin: 0 auto;
-    border-radius: var(--radio);
+.carrusel__pista {
+    display: flex;
+    gap: var(--espacio-lg);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: var(--espacio-sm) var(--espacio-xs);
+    /* Espacio para que la sombra de las cards no se recorte al hacer scroll */
+    flex: 1;
+    /* Oculta la barra de scroll nativa (el control son las flechas + swipe) */
+    scrollbar-width: none;
 }
 
-.destacado figcaption {
-    margin-top: var(--espacio-sm);
-    color: var(--color-texto-suave);
-    font-style: italic;
+.carrusel__pista::-webkit-scrollbar {
+    display: none;
+}
+
+/* Cada card ocupa un ancho fijo y se ancla al hacer snap */
+.carrusel__pista .producto {
+    flex: 0 0 clamp(15rem, 80%, 20rem);
+    scroll-snap-align: start;
+}
+
+/* Flechas de navegacion: circulos que reutilizan los colores de marca */
+.carrusel__flecha {
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-primario);
+    color: var(--color-superficie);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--sombra-card);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.carrusel__flecha:hover {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    transform: scale(1.05);
+}
+
+.carrusel__flecha:focus-visible {
+    outline: 2px solid var(--color-acento);
+    outline-offset: 2px;
 }
 
 /* Footer: Flexbox 1D con wrap.
