@@ -26,6 +26,7 @@
     <script src="js/api.js" defer></script>
     <script src="js/utils.js" defer></script>
     <script src="js/sesion.js" defer></script>
+    <script src="js/footer.js" defer></script>
     <script src="js/carrito.js" defer></script>
     <script src="app.js" defer></script>
 </head>
@@ -222,22 +223,9 @@
     </main>
 
     <!-- ====== FOOTER ======
+         Footer unico inyectado por js/footer.js (fuente unica de verdad).
          Flexbox: 3 columnas en desktop, columna unica en mobile. -->
-    <footer class="pie">
-        <div class="pie__col">
-            <h3 class="pie__titulo">termoshop</h3>
-            <p>Termos premium en Argentina desde 2026.</p>
-        </div>
-        <div class="pie__col">
-            <h3 class="pie__titulo">Contacto</h3>
-            <p>Av. Belgrano 723, CABA</p>
-            <p>info@termoshop.ar</p>
-        </div>
-        <div class="pie__col">
-            <h3 class="pie__titulo">Legales</h3>
-            <p>&copy; 2026 termoshop. Parcial 1 - ISTEA - Aplicaciones Web Cliente.</p>
-        </div>
-    </footer>
+    <footer class="pie" id="pie"></footer>
 
 </body>
 </html>

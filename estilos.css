@@ -564,9 +564,11 @@ button {
     font-style: italic;
 }
 
-/* Footer: Flexbox 1D con wrap */
+/* Footer: Flexbox 1D con wrap.
+   min-height (no height fija) para que al apilarse en columnas en pantallas
+   angostas el contenido no desborde el pie. */
 .pie {
-    height: var(--altura-pie);
+    min-height: var(--altura-pie);
     background-color: var(--color-primario);
     color: var(--color-superficie);
     padding: var(--espacio-xl) var(--espacio-md);
@@ -592,6 +594,19 @@ button {
     font-size: 0.9rem;
     opacity: 0.9;
     margin-bottom: var(--espacio-xs);
+}
+
+/* Links de contacto del footer (direccion y email) */
+.pie__link {
+    color: var(--color-superficie);
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.pie__link:hover,
+.pie__link:focus-visible {
+    color: var(--color-acento);
+    text-decoration: underline;
 }
 
 

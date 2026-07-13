@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="estilos.css">
 
-    <!-- Orden: config -> api -> sesion -> login -->
+    <!-- Orden: config -> api -> utils -> sesion -> footer -> login -->
     <script src="js/config.js" defer></script>
     <script src="js/api.js" defer></script>
+    <script src="js/utils.js" defer></script>
     <script src="js/sesion.js" defer></script>
+    <script src="js/footer.js" defer></script>
     <script src="js/login.js" defer></script>
 </head>
 <body>
@@ -80,12 +82,8 @@
         </section>
     </main>
 
-    <footer class="pie">
-        <div class="pie__col">
-            <h3 class="pie__titulo">termoshop</h3>
-            <p>Termos premium en Argentina desde 2026.</p>
-        </div>
-    </footer>
+    <!-- Footer unico inyectado por js/footer.js -->
+    <footer class="pie" id="pie"></footer>
 
 </body>
 </html>
