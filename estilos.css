@@ -793,7 +793,10 @@ button {
 .carrusel {
     position: relative;
     display: flex;
-    align-items: center;
+    /* stretch para que la pista (y sus cards) tomen la misma altura: asi una
+       card con el nombre en 2 lineas no desnivela ni "salta" respecto al resto.
+       Las flechas se recentran con align-self para no estirarse. */
+    align-items: stretch;
     gap: var(--espacio-sm);
 }
 
@@ -823,6 +826,9 @@ button {
 /* Flechas de navegacion: circulos que reutilizan los colores de marca */
 .carrusel__flecha {
     flex: 0 0 auto;
+    /* el carrusel es align-items:stretch (para igualar cards); las flechas
+       vuelven a centrarse para no estirarse a la altura de la pista. */
+    align-self: center;
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 50%;
