@@ -1188,6 +1188,23 @@ button {
     color: #b00020;
 }
 
+/* Enlace entre login y registro debajo del boton del form */
+.form__ayuda {
+    margin-top: var(--espacio-md);
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.form__enlace {
+    color: var(--color-primario);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.form__enlace:hover {
+    text-decoration: none;
+}
+
 /* --- Tabla / acciones del panel admin --- */
 .admin__acciones {
     display: flex;

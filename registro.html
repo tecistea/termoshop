@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Historial de ordenes de termoshop.">
-    <title>termoshop - Ordenes</title>
+    <meta name="description" content="Crea tu cuenta en termoshop.">
+    <title>termoshop - Crear cuenta</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="estilos.css?v=b3bd706">
 
+    <!-- Orden: config -> api -> utils -> sesion -> footer -> login -->
     <script src="js/config.js?v=b3bd706" defer></script>
     <script src="js/api.js?v=b3bd706" defer></script>
     <script src="js/utils.js?v=b3bd706" defer></script>
@@ -18,7 +19,7 @@
     <script src="js/nav.js?v=b3bd706" defer></script>
     <script src="js/sesion.js?v=b3bd706" defer></script>
     <script src="js/footer.js?v=b3bd706" defer></script>
-    <script src="js/ordenes.js?v=b3bd706" defer></script>
+    <script src="js/login.js?v=b3bd706" defer></script>
 </head>
 <body>
 
@@ -34,21 +35,46 @@
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__lista">
                     <li><a href="index.html" class="nav__link">Inicio</a></li>
-                    <li><a href="index.html#catalogo" class="nav__link">Catalogo</a></li>
                     <li><a href="contacto.html" class="nav__link">Contacto</a></li>
                 </ul>
+                <!-- Estado de sesion lo pinta sesion.js -->
                 <div class="nav__sesion" id="nav-sesion"></div>
             </div>
         </nav>
     </header>
 
-    <main class="main">
-        <section class="seccion">
-            <h1 class="seccion__titulo">Ordenes</h1>
-            <p class="seccion__intro" id="ordenes-subtitulo"></p>
+    <main class="main main--auth">
+        <section class="seccion seccion--auth">
+            <h1 class="seccion__titulo">Crear cuenta</h1>
 
-            <!-- Lista de ordenes: la rellena ordenes.js -->
-            <div id="ordenes-lista"></div>
+            <div class="auth__columnas">
+
+                <!-- ====== REGISTRO ====== -->
+                <form id="form-registro" class="form" novalidate>
+                    <h2 class="form__titulo">Registrate en termoshop</h2>
+
+                    <div class="form__campo">
+                        <label for="reg-email" class="form__label">Email</label>
+                        <input type="email" id="reg-email" name="email" class="form__input"
+                               placeholder="vos@ejemplo.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form__campo">
+                        <label for="reg-password" class="form__label">Contrasena</label>
+                        <input type="password" id="reg-password" name="password" class="form__input"
+                               placeholder="Minimo 6 caracteres" required minlength="6" autocomplete="new-password">
+                    </div>
+
+                    <button type="submit" class="btn btn--primario btn--grande form__boton">Registrarme</button>
+                    <p id="reg-mensaje" class="form__exito" hidden></p>
+
+                    <p class="form__ayuda">
+                        Ya tenes cuenta?
+                        <a href="login.html" class="form__enlace">Iniciar sesion</a>
+                    </p>
+                </form>
+
+            </div>
         </section>
     </main>
 
