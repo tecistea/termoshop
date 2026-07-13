@@ -88,13 +88,13 @@ const crearCard = (producto) => {
     /* "Ver detalle": link a la pagina de detalle con el id en la URL.
        Es la accion secundaria (contorno), para diferenciarla del CTA
        principal "Agregar al carrito" (relleno). */
-    const boton = crearElemento('a', 'btn btn--secundario btn--bloque producto__boton', 'Ver detalle');
+    const boton = crearBotonIcono('a', 'btn btn--secundario btn--bloque producto__boton', 'Ver detalle', 'info');
     boton.href = `producto.html?id=${producto.id}`;
     cuerpo.append(boton);
 
     /* Boton "agregar al carrito" (Parcial 2): CTA principal (relleno).
        El listener delegado lo distingue por su clase y usa dataset.id. */
-    const botonCarrito = crearElemento('button', 'btn btn--primario btn--bloque producto__carrito', 'Agregar al carrito');
+    const botonCarrito = crearBotonIcono('button', 'btn btn--primario btn--bloque producto__carrito', 'Agregar al carrito', 'carrito');
     botonCarrito.type = 'button';
     botonCarrito.dataset.id = producto.id;
     cuerpo.append(botonCarrito);
@@ -277,6 +277,8 @@ const correrDemosFuncionales = (productos) => {
 const init = async () => {
     /* a) estado de sesion en la navbar (login / email + salir) */
     pintarNavSesion();
+    /* badge con la cantidad de items del carrito (viene de js/carrito.js) */
+    actualizarBadgeCarrito();
 
     /* b) renderizamos las cards desde Supabase */
     await renderCatalogo();

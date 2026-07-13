@@ -43,6 +43,8 @@ const agregarAlCarrito = async (productoId) => {
         });
     }
     mostrarToast('Producto agregado al carrito.', 'exito');
+    /* Reflejamos la nueva cantidad en el badge del nav al instante */
+    await actualizarBadgeCarrito();
 };
 
 
@@ -53,6 +55,39 @@ const obtenerCarrito = async (usuarioId) =>
         'carrito_items',
         `?usuario_id=eq.${usuarioId}&select=*,productos(*)&order=id.asc`
     );
+
+
+/* actualizarBadgeCarrito: pinta la cantidad total de unidades del carrito en
+   el badge del nav (#nav-carrito-badge, lo crea pintarNavSesion en sesion.js).
+   - Suma las cantidades de todos los items (no la cantidad de filas).
+   - Con carrito vacio o sin sesion, oculta el badge (no muestra "0").
+   - Es tolerante: si no hay badge (pagina sin nav logueado) o falla el fetch,
+     no rompe nada. Se llama al cargar cada pagina y tras agregar al carrito. */
+const actualizarBadgeCarrito = async () => {
+    const badge = document.querySelector('#nav-carrito-badge');
+    if (!badge) {
+        return;
+    }
+    const sesion = obtenerSesion();
+    if (!sesion) {
+        badge.hidden = true;
+        return;
+    }
+    try {
+        const items = await obtenerCarrito(sesion.id);
+        const total = items.reduce((acc, item) => acc + item.cantidad, 0);
+        if (total > 0) {
+            badge.textContent = String(total);
+            badge.hidden = false;
+        } else {
+            badge.hidden = true;
+        }
+    } catch (error) {
+        /* Si falla la consulta, no mostramos un badge incorrecto */
+        console.error('No se pudo actualizar el badge del carrito:', error);
+        badge.hidden = true;
+    }
+};
 
 
 /* iniciarPaginaCarrito: arma la pagina carrito.html. Solo corre si hay
@@ -196,6 +231,7 @@ const iniciarPaginaCarrito = () => {
 
     /* Arranque */
     pintarNavSesion();
+    actualizarBadgeCarrito();
     render().catch((error) => mostrarMensaje(error.message, true));
 };
 

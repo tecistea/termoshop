@@ -220,6 +220,67 @@ button {
     color: var(--color-acento);
 }
 
+/* ====== ICONOS SVG (.icono) ======
+   Iconos de trazo inyectados por crearIcono() (js/utils.js) o escritos inline
+   en el HTML. Heredan el color del texto con currentColor y escalan en 'em',
+   asi acompanan al texto del boton/enlace sin tamanos fijos. */
+.icono {
+    width: 1.1em;
+    height: 1.1em;
+    /* trazo que toma el color del contenedor (boton, link, item de contacto) */
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: 0 0 auto;
+}
+
+/* Separacion icono-texto: el .btn y .nav__link ya son inline-flex y centran;
+   solo aportamos el gap. */
+.btn,
+.nav__link {
+    gap: var(--espacio-sm);
+}
+
+/* Items de contacto: cada <li> pasa a flex para alinear el icono con el texto
+   (el <ul> es grid, pero los <li> no eran flex). */
+.contacto__datos li {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-sm);
+}
+
+/* En los datos de contacto el icono usa el dorado de marca para destacar */
+.contacto__datos .icono {
+    color: var(--color-acento);
+    width: 1.25em;
+    height: 1.25em;
+}
+
+/* ====== BADGE DE CANTIDAD (carrito en el nav) ======
+   Pastilla dorada con la cantidad de items del carrito, dentro del link
+   "Carrito". La pinta actualizarBadgeCarrito() (js/carrito.js). Cuando el
+   carrito esta vacio, el badge se oculta con [hidden] (no muestra "0"). */
+.nav__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35em;
+    height: 1.35em;
+    padding: 0 0.35em;
+    background-color: var(--color-acento);
+    color: var(--color-primario);
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: 999px;
+}
+
+.nav__badge[hidden] {
+    display: none;
+}
+
 /* ====== SISTEMA DE BOTONES (.btn) ======
    Familia unica de CTAs. Reemplaza las clases dispersas anteriores
    (hero__boton, form__boton, producto__boton, producto__carrito, nav__cta...).

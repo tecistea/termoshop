@@ -214,11 +214,20 @@ const pintarNavSesion = () => {
         contenedor.append(admin);
     }
 
-    /* Link al carrito */
+    /* Link al carrito: icono + texto + badge con la cantidad de items.
+       El badge arranca oculto; actualizarBadgeCarrito() (js/carrito.js) lo
+       llena con el conteo real. Se identifica con #nav-carrito-badge. */
     const carrito = document.createElement('a');
     carrito.href = 'carrito.html';
     carrito.className = 'nav__link';
-    carrito.textContent = 'Carrito';
+    carrito.append(
+        crearIcono('carrito'),
+        crearElemento('span', '', 'Carrito')
+    );
+    const badge = crearElemento('span', 'nav__badge');
+    badge.id = 'nav-carrito-badge';
+    badge.hidden = true;
+    carrito.append(badge);
     contenedor.append(carrito);
 
     /* Link a ordenes (historial propio; el admin ve todas) */
