@@ -85,16 +85,15 @@ const crearCard = (producto) => {
         crearElemento('p', 'producto__stock', `Stock disponible: ${producto.stock} unidades`)
     );
 
-    /* Boton "ver detalle": tambien tiene dataset.id (req 26) para que
-       el listener delegado lo identifique con closest(). */
     /* "Ver detalle": link a la pagina de detalle con el id en la URL.
-       Antes era un boton que expandia la card; ahora navega a producto.html. */
-    const boton = crearElemento('a', 'btn btn--primario producto__boton', 'Ver detalle');
+       Es la accion secundaria (contorno), para diferenciarla del CTA
+       principal "Agregar al carrito" (relleno). */
+    const boton = crearElemento('a', 'btn btn--secundario btn--bloque producto__boton', 'Ver detalle');
     boton.href = `producto.html?id=${producto.id}`;
     cuerpo.append(boton);
 
-    /* Boton "agregar al carrito" (Parcial 2). El listener delegado lo
-       distingue por su clase y usa dataset.id para saber que producto. */
+    /* Boton "agregar al carrito" (Parcial 2): CTA principal (relleno).
+       El listener delegado lo distingue por su clase y usa dataset.id. */
     const botonCarrito = crearElemento('button', 'btn btn--primario btn--bloque producto__carrito', 'Agregar al carrito');
     botonCarrito.type = 'button';
     botonCarrito.dataset.id = producto.id;
