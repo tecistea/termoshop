@@ -80,14 +80,14 @@ const iniciarAdmin = () => {
 
             const btnEditar = document.createElement('button');
             btnEditar.type = 'button';
-            btnEditar.className = 'boton--secundario';
+            btnEditar.className = 'btn btn--secundario';
             btnEditar.textContent = 'Editar';
             btnEditar.dataset.id = p.id;
             btnEditar.dataset.accion = 'editar';
 
             const btnBorrar = document.createElement('button');
             btnBorrar.type = 'button';
-            btnBorrar.className = 'boton--secundario boton--peligro';
+            btnBorrar.className = 'btn btn--peligro';
             btnBorrar.textContent = 'Borrar';
             btnBorrar.dataset.id = p.id;
             btnBorrar.dataset.accion = 'borrar';

@@ -15,6 +15,7 @@
     <script src="js/api.js" defer></script>
     <script src="js/utils.js" defer></script>
     <script src="js/sesion.js" defer></script>
+    <script src="js/footer.js" defer></script>
     <script src="js/carrito.js" defer></script>
 </head>
 <body>
@@ -25,6 +26,7 @@
             <ul class="nav__lista">
                 <li><a href="index.html" class="nav__link">Inicio</a></li>
                 <li><a href="index.html#catalogo" class="nav__link">Catalogo</a></li>
+                <li><a href="contacto.html" class="nav__link">Contacto</a></li>
             </ul>
             <div class="nav__sesion" id="nav-sesion"></div>
         </nav>
@@ -39,7 +41,7 @@
 
             <p class="carrito__total" id="carrito-total"></p>
 
-            <button type="button" id="btn-checkout" class="form__boton" hidden>
+            <button type="button" id="btn-checkout" class="btn btn--primario btn--grande form__boton" hidden>
                 Finalizar compra
             </button>
 
@@ -47,12 +49,8 @@
         </section>
     </main>
 
-    <footer class="pie">
-        <div class="pie__col">
-            <h3 class="pie__titulo">termoshop</h3>
-            <p>Termos premium en Argentina desde 2026.</p>
-        </div>
-    </footer>
+    <!-- Footer unico inyectado por js/footer.js -->
+    <footer class="pie" id="pie"></footer>
 
 </body>
 </html>

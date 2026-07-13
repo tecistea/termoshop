@@ -26,6 +26,7 @@
     <script src="js/api.js" defer></script>
     <script src="js/utils.js" defer></script>
     <script src="js/sesion.js" defer></script>
+    <script src="js/footer.js" defer></script>
     <script src="js/carrito.js" defer></script>
     <script src="app.js" defer></script>
 </head>
@@ -40,8 +41,7 @@
 
             <ul class="nav__lista">
                 <li><a href="#catalogo" class="nav__link" data-seccion="catalogo">Catalogo</a></li>
-                <li><a href="#contacto" class="nav__link" data-seccion="contacto">Contacto</a></li>
-                <li><a href="#ubicacion" class="nav__link" data-seccion="ubicacion">Ubicacion</a></li>
+                <li><a href="contacto.html" class="nav__link">Contacto</a></li>
             </ul>
 
             <!-- Estado de sesion (login / email + salir). Lo pinta sesion.js -->
@@ -64,7 +64,7 @@
                     Stanley, Lumilagro, Waicom y Termolar.
                     Acero inoxidable y vidrio premium para tu mate, cafe o agua caliente.
                 </p>
-                <a href="#catalogo" class="hero__boton">Explorar catalogo</a>
+                <a href="#catalogo" class="btn btn--acento">Explorar catalogo</a>
             </div>
         </section>
 
@@ -84,160 +84,15 @@
             </div>
         </section>
 
-        <!-- ====== CONTACTO ======
-             Form con method y action declarados (req 4).
-             novalidate desactiva los popups nativos para que JS controle los mensajes,
-             pero los atributos required/pattern/minlength siguen siendo evaluados por
-             checkValidity() en el submit. -->
-        <section id="contacto" class="seccion seccion--contacto">
-            <h2 class="seccion__titulo">Contactanos</h2>
-            <p class="seccion__intro">
-                Consultas sobre stock, envios o garantia. Respondemos en menos de 24 hs.
-            </p>
-
-            <form id="form-contacto" class="form" method="POST" action="#" novalidate>
-
-                <!-- Cada input tiene su <label for> vinculado por id (req 5).
-                     El placeholder NO reemplaza al label, solo da una pista. -->
-                <div class="form__campo">
-                    <label for="input-nombre" class="form__label">Nombre completo</label>
-                    <input
-                        type="text"
-                        id="input-nombre"
-                        name="nombre"
-                        class="form__input"
-                        placeholder="Ej: Juan Perez"
-                        required
-                        minlength="2"
-                        maxlength="50"
-                        autocomplete="name">
-                </div>
-
-                <div class="form__campo">
-                    <label for="input-email" class="form__label">Email</label>
-                    <input
-                        type="email"
-                        id="input-email"
-                        name="email"
-                        class="form__input"
-                        placeholder="vos@ejemplo.com"
-                        required
-                        maxlength="80"
-                        autocomplete="email">
-                </div>
-
-                <div class="form__campo">
-                    <label for="input-telefono" class="form__label">Telefono</label>
-                    <!-- pattern: solo numeros, entre 10 y 15 digitos (cubre celular AR con/sin prefijo) -->
-                    <input
-                        type="tel"
-                        id="input-telefono"
-                        name="telefono"
-                        class="form__input"
-                        placeholder="1133334444"
-                        required
-                        pattern="[0-9]{10,15}"
-                        autocomplete="tel">
-                </div>
-
-                <div class="form__campo">
-                    <label for="input-asunto" class="form__label">Asunto</label>
-                    <select id="input-asunto" name="asunto" class="form__input" required>
-                        <option value="">Elegi un motivo</option>
-                        <option value="stock">Consulta de stock</option>
-                        <option value="envio">Envio a domicilio</option>
-                        <option value="garantia">Garantia / posventa</option>
-                        <option value="mayorista">Venta mayorista</option>
-                    </select>
-                </div>
-
-                <div class="form__campo">
-                    <label for="input-mensaje" class="form__label">Mensaje</label>
-                    <textarea
-                        id="input-mensaje"
-                        name="mensaje"
-                        class="form__input form__input--textarea"
-                        placeholder="Contanos en que podemos ayudarte..."
-                        required
-                        minlength="10"
-                        maxlength="500"
-                        rows="5"></textarea>
-                </div>
-
-                <!-- Checkbox required: bloquea el submit si el usuario no acepta los terminos.
-                     El label envuelve al input para que el click en el texto tambien funcione. -->
-                <div class="form__campo form__campo--checkbox">
-                    <label for="input-terminos" class="form__label-checkbox">
-                        <input
-                            type="checkbox"
-                            id="input-terminos"
-                            name="terminos"
-                            class="form__checkbox"
-                            required>
-                        <span>Acepto los terminos y condiciones</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="form__boton">Enviar consulta</button>
-
-                <!-- Aviso de exito: arranca oculto, JS lo muestra al validar OK -->
-                <p id="form-exito" class="form__exito" hidden>
-                    Gracias por tu consulta. Te respondemos a la brevedad.
-                </p>
-            </form>
-        </section>
-
-        <!-- ====== UBICACION ======
-             Section con iframe de Google Maps. El iframe DEBE tener title (req 9)
-             porque sin eso es inaccesible para lectores de pantalla.
-             loading="lazy" difiere la carga hasta que el iframe entre al viewport. -->
-        <section id="ubicacion" class="seccion seccion--ubicacion">
-            <h2 class="seccion__titulo">Donde encontrarnos</h2>
-            <p class="seccion__intro">
-                Showroom en CABA. Atencion con turno previo de lunes a viernes.
-            </p>
-
-            <div class="mapa">
-                <iframe
-                    title="Mapa de ubicacion del showroom de termoshop en Av. Belgrano 723, CABA"
-                    src="https://www.google.com/maps?q=Av.+Belgrano+723,+CABA&output=embed"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen></iframe>
-            </div>
-
-            <!-- Imagen destacada: cumple req 8 (img con alt obligatorio y loading=lazy).
-                 Usamos una imagen del catalogo como banner secundario. -->
-            <figure class="destacado">
-                <img
-                    src="productos-imagenes/stanley-classic-14l.webp"
-                    alt="Termo Stanley Classic Legendary 1.4 litros color verde Hammertone sobre fondo blanco"
-                    loading="lazy"
-                    width="600"
-                    height="600">
-                <figcaption>Stanley Classic Legendary 1.4L - nuestro mas vendido.</figcaption>
-            </figure>
-        </section>
+        <!-- El formulario de contacto y la ubicacion se movieron a
+             contacto.html (pagina dedicada). El nav linkea alli. -->
 
     </main>
 
     <!-- ====== FOOTER ======
+         Footer unico inyectado por js/footer.js (fuente unica de verdad).
          Flexbox: 3 columnas en desktop, columna unica en mobile. -->
-    <footer class="pie">
-        <div class="pie__col">
-            <h3 class="pie__titulo">termoshop</h3>
-            <p>Termos premium en Argentina desde 2026.</p>
-        </div>
-        <div class="pie__col">
-            <h3 class="pie__titulo">Contacto</h3>
-            <p>Av. Belgrano 723, CABA</p>
-            <p>info@termoshop.ar</p>
-        </div>
-        <div class="pie__col">
-            <h3 class="pie__titulo">Legales</h3>
-            <p>&copy; 2026 termoshop. Parcial 1 - ISTEA - Aplicaciones Web Cliente.</p>
-        </div>
-    </footer>
+    <footer class="pie" id="pie"></footer>
 
 </body>
 </html>

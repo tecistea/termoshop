@@ -28,6 +28,7 @@
     --color-error:    #8B3A2F;       /* terracota mensajes de error */
     --color-exito:    #2C3E2D;       /* verde exito */
     --color-borde:    #D8D2C4;       /* bordes sutiles */
+    --color-peligro:  #b00020;       /* rojo acciones destructivas (borrar/quitar) */
 
     /* Tipografia */
     --fuente-titulo: "Bricolage Grotesque", system-ui, sans-serif;
@@ -162,18 +163,106 @@ button {
     color: var(--color-acento);
 }
 
-.nav__cta {
+/* ====== SISTEMA DE BOTONES (.btn) ======
+   Familia unica de CTAs. Reemplaza las clases dispersas anteriores
+   (hero__boton, form__boton, producto__boton, producto__carrito, nav__cta...).
+   Uso: class="btn btn--primario" / "btn btn--acento" / "btn--secundario" etc.
+   Los modificadores solo cambian color; la base define tamano y comportamiento. */
+.btn {
+    display: inline-block;
+    padding: var(--espacio-sm) var(--espacio-md);
+    border: 1px solid transparent;
+    border-radius: var(--radio-sm);
     background-color: var(--color-primario);
     color: var(--color-superficie);
-    padding: var(--espacio-sm) var(--espacio-md);
-    border-radius: var(--radio-sm);
+    font-family: inherit;
+    font-size: 1rem;
     font-weight: 600;
-    transition: background-color 0.25s ease, transform 0.25s ease;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    /* transitions especificas (req 19): NO usamos transition: all */
+    transition: background-color 0.25s ease, color 0.25s ease,
+                border-color 0.25s ease, transform 0.25s ease;
 }
 
-.nav__cta:hover {
+.btn:hover {
     background-color: var(--color-acento);
+    color: var(--color-texto);
     transform: translateY(-2px);
+}
+
+/* Accesibilidad: anillo de foco visible al navegar con teclado */
+.btn:focus-visible {
+    outline: 2px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn.esta-deshabilitado {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Primario: verde Stanley (accion principal por defecto) */
+.btn--primario {
+    background-color: var(--color-primario);
+    color: var(--color-superficie);
+}
+
+/* Acento: dorado (hero / CTA destacado sobre fondo verde) */
+.btn--acento {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    padding: var(--espacio-md) var(--espacio-lg);
+}
+
+.btn--acento:hover {
+    background-color: var(--color-calido);
+    color: var(--color-texto);
+}
+
+/* Secundario: contorno, sin relleno (acciones menores: cancelar, salir) */
+.btn--secundario {
+    background-color: transparent;
+    border-color: var(--color-texto-suave);
+    color: var(--color-texto);
+    font-size: 0.9rem;
+    padding: var(--espacio-xs) var(--espacio-md);
+}
+
+.btn--secundario:hover {
+    background-color: var(--color-texto);
+    border-color: var(--color-texto);
+    color: var(--color-superficie);
+}
+
+/* Peligro: acciones destructivas (borrar, quitar). Variante del secundario. */
+.btn--peligro {
+    background-color: transparent;
+    border-color: var(--color-peligro);
+    color: var(--color-peligro);
+    font-size: 0.9rem;
+    padding: var(--espacio-xs) var(--espacio-md);
+}
+
+.btn--peligro:hover {
+    background-color: var(--color-peligro);
+    border-color: var(--color-peligro);
+    color: var(--color-superficie);
+    transform: none;
+}
+
+/* Grande: para CTAs de formularios (submit) */
+.btn--grande {
+    padding: var(--espacio-md) var(--espacio-lg);
+    font-size: 1rem;
+}
+
+/* Bloque: ocupa todo el ancho del contenedor */
+.btn--bloque {
+    width: 100%;
 }
 
 /* Main: contenedor con max-width para no estirarse en monitores anchos */
@@ -211,20 +300,7 @@ button {
     opacity: 0.9;
 }
 
-.hero__boton {
-    display: inline-block;
-    background-color: var(--color-acento);
-    color: var(--color-texto);
-    padding: var(--espacio-md) var(--espacio-lg);
-    border-radius: var(--radio-sm);
-    font-weight: 600;
-    transition: background-color 0.25s ease, transform 0.25s ease;
-}
-
-.hero__boton:hover {
-    background-color: var(--color-calido);
-    transform: translateY(-2px);
-}
+/* El CTA del hero usa .btn .btn--acento (ver sistema de botones). */
 
 /* Secciones genericas */
 .seccion {
@@ -331,30 +407,73 @@ button {
     color: var(--color-texto-suave);
 }
 
-.producto__descripcion {
-    /* arranca oculto, se expande al togglear .expandida con classList */
-    display: none;
-    margin-top: var(--espacio-sm);
-    color: var(--color-texto-suave);
-}
-
-.producto.expandida .producto__descripcion {
-    display: block;
-}
-
+/* "Ver detalle" y "Agregar al carrito" usan .btn; estas clases solo aportan
+   el espaciado dentro de la card. */
 .producto__boton {
-    background-color: var(--color-primario);
-    color: var(--color-superficie);
-    padding: var(--espacio-sm) var(--espacio-md);
-    border-radius: var(--radio-sm);
-    font-weight: 600;
     margin-top: var(--espacio-sm);
-    transition: background-color 0.25s ease;
 }
 
-.producto__boton:hover {
-    background-color: var(--color-acento);
+/* ====== DETALLE DE PRODUCTO (producto.html) ======
+   Layout 2 columnas (imagen + info) en desktop, 1 columna en mobile.
+   Reutiliza tokens y clases de card (.producto__marca, .producto__meta...). */
+.detalle {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--espacio-xl);
+    align-items: start;
+}
+
+.detalle__media {
+    position: relative;
+    background-color: var(--color-superficie);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra-card);
+    padding: var(--espacio-lg);
+}
+
+.detalle__imagen {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.detalle__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.detalle__nombre {
+    font-family: var(--fuente-titulo);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     color: var(--color-texto);
+}
+
+.detalle__precio {
+    font-family: var(--fuente-titulo);
+    font-size: 2rem;
+    color: var(--color-primario);
+    font-weight: 700;
+}
+
+.detalle__descripcion {
+    color: var(--color-texto-suave);
+    line-height: 1.7;
+    margin-top: var(--espacio-sm);
+}
+
+.detalle__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--espacio-sm);
+    margin-top: var(--espacio-md);
+}
+
+/* 2 columnas desde tablet */
+@media (min-width: 768px) {
+    .detalle {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 /* Badge: position absolute respecto al .producto relative (req 18).
@@ -450,21 +569,10 @@ button {
     margin-top: var(--espacio-xs);
 }
 
+/* El submit de los formularios usa .btn .btn--primario .btn--grande;
+   esta clase solo lo alinea a la izquierda dentro del form flex. */
 .form__boton {
-    background-color: var(--color-primario);
-    color: var(--color-superficie);
-    padding: var(--espacio-md) var(--espacio-lg);
-    border-radius: var(--radio-sm);
-    font-weight: 600;
-    font-size: 1rem;
-    transition: background-color 0.25s ease, transform 0.25s ease;
     align-self: flex-start;
-}
-
-.form__boton:hover {
-    background-color: var(--color-acento);
-    color: var(--color-texto);
-    transform: translateY(-2px);
 }
 
 .form__exito {
@@ -473,6 +581,31 @@ button {
     color: var(--color-exito);
     border-radius: var(--radio-sm);
     font-weight: 600;
+}
+
+/* Datos de contacto directos (email, direccion, horario) en contacto.html */
+.contacto__datos {
+    list-style: none;
+    margin-bottom: var(--espacio-lg);
+    display: grid;
+    gap: var(--espacio-xs);
+    color: var(--color-texto-suave);
+}
+
+.contacto__datos strong {
+    color: var(--color-texto);
+}
+
+.contacto__link {
+    color: var(--color-primario);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contacto__link:hover,
+.contacto__link:focus-visible {
+    color: var(--color-acento);
+    text-decoration: underline;
 }
 
 /* Mapa: contenedor responsive para iframe */
@@ -508,9 +641,11 @@ button {
     font-style: italic;
 }
 
-/* Footer: Flexbox 1D con wrap */
+/* Footer: Flexbox 1D con wrap.
+   min-height (no height fija) para que al apilarse en columnas en pantallas
+   angostas el contenido no desborde el pie. */
 .pie {
-    height: var(--altura-pie);
+    min-height: var(--altura-pie);
     background-color: var(--color-primario);
     color: var(--color-superficie);
     padding: var(--espacio-xl) var(--espacio-md);
@@ -536,6 +671,19 @@ button {
     font-size: 0.9rem;
     opacity: 0.9;
     margin-bottom: var(--espacio-xs);
+}
+
+/* Links de contacto del footer (direccion y email) */
+.pie__link {
+    color: var(--color-superficie);
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.pie__link:hover,
+.pie__link:focus-visible {
+    color: var(--color-acento);
+    text-decoration: underline;
 }
 
 
@@ -644,22 +792,7 @@ button {
     color: var(--color-texto-suave);
 }
 
-.nav__salir {
-    cursor: pointer;
-    border: 1px solid var(--color-texto-suave);
-    background: transparent;
-    color: var(--color-texto);
-    padding: 0.3rem 0.8rem;
-    border-radius: var(--radio-sm);
-    font-family: inherit;
-    font-size: 0.85rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.nav__salir:hover {
-    background-color: var(--color-texto);
-    color: #fff;
-}
+/* El boton "Salir" del nav usa .btn .btn--secundario. */
 
 /* --- Layout de paginas auth (login) --- */
 .main--auth {
@@ -722,40 +855,16 @@ button {
     background-color: var(--color-superficie);
 }
 
-.boton--secundario {
-    margin-right: 0.3rem;
-    background: transparent;
-    border: 1px solid var(--color-texto-suave);
-    color: var(--color-texto);
-    cursor: pointer;
-    padding: 0.3rem 0.7rem;
-    border-radius: var(--radio-sm);
-    font-family: inherit;
-    font-size: 0.85rem;
+/* Los botones de fila (editar/borrar/quitar) usan .btn .btn--secundario /
+   .btn--peligro; solo separamos los que van juntos en una fila. */
+.btn + .btn {
+    margin-left: 0.3rem;
 }
 
-.boton--peligro {
-    border-color: #b00020;
-    color: #b00020;
-}
-
-/* --- Boton "agregar al carrito" en las cards del catalogo --- */
+/* --- Boton "agregar al carrito" en las cards del catalogo ---
+   Usa .btn .btn--primario .btn--bloque; esta clase solo aporta el espaciado. */
 .producto__carrito {
     margin-top: var(--espacio-sm);
-    width: 100%;
-    cursor: pointer;
-    border: none;
-    background-color: var(--color-primario);
-    color: #fff;
-    padding: var(--espacio-sm) var(--espacio-md);
-    border-radius: var(--radio-sm);
-    font-family: inherit;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-}
-
-.producto__carrito:hover {
-    filter: brightness(0.95);
 }
 
 /* --- Carrito --- */

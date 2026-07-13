@@ -15,6 +15,7 @@
     <script src="js/api.js" defer></script>
     <script src="js/utils.js" defer></script>
     <script src="js/sesion.js" defer></script>
+    <script src="js/footer.js" defer></script>
     <script src="js/admin.js" defer></script>
 </head>
 <body>
@@ -24,6 +25,7 @@
             <a href="index.html" class="nav__logo">termoshop</a>
             <ul class="nav__lista">
                 <li><a href="index.html" class="nav__link">Inicio</a></li>
+                <li><a href="contacto.html" class="nav__link">Contacto</a></li>
             </ul>
             <div class="nav__sesion" id="nav-sesion"></div>
         </nav>
@@ -82,8 +84,8 @@
                 </div>
 
                 <div class="admin__acciones">
-                    <button type="submit" class="form__boton">Guardar</button>
-                    <button type="button" id="btn-cancelar" class="boton--secundario" hidden>Cancelar edicion</button>
+                    <button type="submit" class="btn btn--primario btn--grande form__boton">Guardar</button>
+                    <button type="button" id="btn-cancelar" class="btn btn--secundario" hidden>Cancelar edicion</button>
                 </div>
                 <p id="admin-mensaje" class="form__exito" hidden></p>
             </form>
@@ -105,12 +107,8 @@
         </section>
     </main>
 
-    <footer class="pie">
-        <div class="pie__col">
-            <h3 class="pie__titulo">termoshop</h3>
-            <p>Panel de administracion - ISTEA 2026.</p>
-        </div>
-    </footer>
+    <!-- Footer unico inyectado por js/footer.js -->
+    <footer class="pie" id="pie"></footer>
 
 </body>
 </html>

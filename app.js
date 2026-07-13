@@ -75,25 +75,27 @@ const crearCard = (producto) => {
     /* Cuerpo de la card */
     const cuerpo = crearElemento('div', 'producto__cuerpo');
 
+    /* La descripcion completa se muestra en producto.html; en la card solo
+       van los datos resumidos. */
     cuerpo.append(
         crearElemento('span', 'producto__marca', producto.marca),
         crearElemento('h3', 'producto__nombre', producto.nombre),
         crearElemento('p', 'producto__meta', `${producto.capacidad} - ${producto.material}`),
         crearElemento('p', 'producto__precio', formatearPrecio(producto.precio)),
-        crearElemento('p', 'producto__stock', `Stock disponible: ${producto.stock} unidades`),
-        crearElemento('p', 'producto__descripcion', producto.descripcion)
+        crearElemento('p', 'producto__stock', `Stock disponible: ${producto.stock} unidades`)
     );
 
     /* Boton "ver detalle": tambien tiene dataset.id (req 26) para que
        el listener delegado lo identifique con closest(). */
-    const boton = crearElemento('button', 'producto__boton', 'Ver detalle');
-    boton.type = 'button';
-    boton.dataset.id = producto.id;
+    /* "Ver detalle": link a la pagina de detalle con el id en la URL.
+       Antes era un boton que expandia la card; ahora navega a producto.html. */
+    const boton = crearElemento('a', 'btn btn--primario producto__boton', 'Ver detalle');
+    boton.href = `producto.html?id=${producto.id}`;
     cuerpo.append(boton);
 
     /* Boton "agregar al carrito" (Parcial 2). El listener delegado lo
        distingue por su clase y usa dataset.id para saber que producto. */
-    const botonCarrito = crearElemento('button', 'producto__carrito', 'Agregar al carrito');
+    const botonCarrito = crearElemento('button', 'btn btn--primario btn--bloque producto__carrito', 'Agregar al carrito');
     botonCarrito.type = 'button';
     botonCarrito.dataset.id = producto.id;
     cuerpo.append(botonCarrito);
@@ -137,128 +139,27 @@ const renderCatalogo = async () => {
 };
 
 
-/* ====== 4. VALIDACION DEL FORMULARIO ======
-   Estrategia:
-     a) limpiar errores previos antes de revalidar (sino se acumulan).
-     b) recorrer reglas, crear span de error con createElement + textContent.
-     c) si no hay errores, mostrar exito y resetear form. */
-
-const limpiarErrores = () => {
-    /* querySelectorAll devuelve un NodeList iterable con forEach */
-    document.querySelectorAll('.form__error').forEach((nodo) => nodo.remove());
-    document.querySelectorAll('.form__input.con-error').forEach((input) => {
-        input.classList.remove('con-error');
-    });
-};
-
-const mostrarError = (input, mensaje) => {
-    input.classList.add('con-error');
-    const span = crearElemento('span', 'form__error', mensaje);
-    /* Si el input esta envuelto en un <label> (como el checkbox de
-       terminos), insertamos el error despues del label completo,
-       no entre el input y el texto del label. */
-    const labelEnvoltorio = input.closest('label');
-    const anchor = labelEnvoltorio || input;
-    anchor.after(span);
-};
-
-const validarFormulario = (evento) => {
-    /* preventDefault frena el submit nativo para que JS controle todo (req 29) */
-    evento.preventDefault();
-    limpiarErrores();
-
-    const form = evento.currentTarget;
-    const inputNombre   = form.querySelector('#input-nombre');
-    const inputEmail    = form.querySelector('#input-email');
-    const inputTelefono = form.querySelector('#input-telefono');
-    const inputAsunto   = form.querySelector('#input-asunto');
-    const inputMensaje  = form.querySelector('#input-mensaje');
-    const inputTerminos = form.querySelector('#input-terminos');
-    const avisoExito    = form.querySelector('#form-exito');
-
-    let hayErrores = false;
-
-    /* Validacion nombre: minimo 2 caracteres, maximo 50 */
-    const nombre = inputNombre.value.trim();
-    if (nombre.length < 2 || nombre.length > 50) {
-        mostrarError(inputNombre, 'El nombre debe tener entre 2 y 50 caracteres.');
-        hayErrores = true;
-    }
-
-    /* Validacion email: usamos checkValidity() que aplica el type=email del HTML */
-    if (!inputEmail.checkValidity() || inputEmail.value.trim() === '') {
-        mostrarError(inputEmail, 'Ingresa un email valido (ej: vos@ejemplo.com).');
-        hayErrores = true;
-    }
-
-    /* Validacion telefono: pattern HTML5 evalua si son 10-15 digitos */
-    if (!inputTelefono.checkValidity() || inputTelefono.value.trim() === '') {
-        mostrarError(inputTelefono, 'El telefono debe tener entre 10 y 15 digitos numericos.');
-        hayErrores = true;
-    }
-
-    /* Validacion asunto: el value vacio del placeholder hace que required dispare */
-    if (inputAsunto.value === '') {
-        mostrarError(inputAsunto, 'Elegi un motivo de consulta.');
-        hayErrores = true;
-    }
-
-    /* Validacion mensaje: minimo 10 caracteres */
-    const mensaje = inputMensaje.value.trim();
-    if (mensaje.length < 10) {
-        mostrarError(inputMensaje, 'El mensaje debe tener al menos 10 caracteres.');
-        hayErrores = true;
-    }
-
-    /* Validacion checkbox terminos */
-    if (!inputTerminos.checked) {
-        mostrarError(inputTerminos, 'Tenes que aceptar los terminos para continuar.');
-        hayErrores = true;
-    }
-
-    /* Si todo OK: mostrar exito, resetear form */
-    if (!hayErrores) {
-        avisoExito.hidden = false;
-        form.reset();
-        /* despues de 4 segundos ocultamos el aviso */
-        setTimeout(() => {
-            avisoExito.hidden = true;
-        }, 4000);
-    } else {
-        avisoExito.hidden = true;
-    }
-};
+/* La validacion del formulario de contacto se movio a js/contacto.js
+   junto con la pagina contacto.html. app.js queda enfocado en el catalogo. */
 
 
 /* ====== 5. HANDLERS ====== */
 
 /* Handler delegado del catalogo: un solo listener en el contenedor (req 28).
-   closest() sube por el DOM hasta encontrar un elemento con data-id.
-   Si el click cayo fuera de un boton/card, closest devuelve null y salimos. */
+   closest() sube por el DOM hasta encontrar el boton de carrito.
+   "Ver detalle" ya no pasa por aca: es un link a producto.html. */
 const handlerCatalogo = (evento) => {
-    /* Caso 1: click en "agregar al carrito" (Parcial 2). */
+    /* Click en "agregar al carrito": upsert del item (Parcial 2). */
     const botonCarrito = evento.target.closest('.producto__carrito');
-    if (botonCarrito) {
-        const idProducto = Number(botonCarrito.dataset.id);
-        /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
-        agregarAlCarrito(idProducto).catch((error) => {
-            console.error('No se pudo agregar al carrito:', error);
-            alert('No se pudo agregar al carrito. Intenta de nuevo.');
-        });
+    if (!botonCarrito) {
         return;
     }
-
-    /* Caso 2: click en "ver detalle": expande la card. */
-    const boton = evento.target.closest('.producto__boton');
-    if (!boton) {
-        return;
-    }
-    const idProducto = Number(boton.dataset.id);
-    const card = boton.closest('.producto');
-    /* classList.toggle: si esta la clase la saca, si no la pone (req 25) */
-    card.classList.toggle('expandida');
-    const producto = productosCargados.find((p) => p.id === idProducto);
-    console.log('Detalle clickeado:', producto);
+    const idProducto = Number(botonCarrito.dataset.id);
+    /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
+    agregarAlCarrito(idProducto).catch((error) => {
+        console.error('No se pudo agregar al carrito:', error);
+        alert('No se pudo agregar al carrito. Intenta de nuevo.');
+    });
 };
 
 /* Handler de los links del nav: marca el link clickeado como activo */
@@ -327,21 +228,15 @@ const init = async () => {
     correrDemosFuncionales(productosCargados);
 };
 
-/* c) registramos los 3 listeners distintos (req 27).
-      Listener 1: submit del formulario con validacion. */
-const form = document.querySelector('#form-contacto');
-if (form) {
-    form.addEventListener('submit', validarFormulario);
-}
-
-/* Listener 2: click delegado en el grid de catalogo (req 28).
-   Un solo listener captura clicks de todas las cards/botones. */
+/* Listener 1: click delegado en el grid de catalogo (req 28).
+   Un solo listener captura clicks de todas las cards/botones.
+   (El submit del form de contacto ahora vive en js/contacto.js.) */
 const catalogoEl = document.querySelector('#catalogo-grid');
 if (catalogoEl) {
     catalogoEl.addEventListener('click', handlerCatalogo);
 }
 
-/* Listener 3: click en cada link del nav para togglear la clase activa.
+/* Listener 2: click en cada link del nav para togglear la clase activa.
    Usamos forEach con arrow para cumplir req 31. */
 document.querySelectorAll('.nav__link').forEach((link) => {
     link.addEventListener('click', handlerNavLink);
