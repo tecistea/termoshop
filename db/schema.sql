@@ -192,9 +192,9 @@ insert into productos (nombre, marca, capacidad, material, precio, stock, badge,
      'productos-imagenes/lumilagro-terra-600.webp',
      'Termo compacto de 600cc, ideal para llevar en la mochila. Ampolla de vidrio con sistema de doble pared al vacio.'),
 
-    ('Premium 1L Acero', 'Waicom', '1000 ml', 'Acero inoxidable doble pared', 64000, 15, 'NUEVO',
-     'productos-imagenes/waicom-premium-1l.webp',
-     'Acero doble pared con aislante al vacio. Excelente relacion calidad-precio entre los termos premium.'),
+    ('eTermo Acero 1L', 'Peabody', '1000 ml', 'Acero inoxidable doble pared', 64000, 15, 'NUEVO',
+     'productos-imagenes/peabody-etermo-1l.webp',
+     'Termo de acero inoxidable con doble pared al vacio y pico cebador. Excelente relacion calidad-precio.'),
 
     ('Magic Pump 1L', 'Termolar', '1000 ml', 'Plastico con sistema bomba', 32500, 20, null,
      'productos-imagenes/termolar-magic-pump-1l.webp',
