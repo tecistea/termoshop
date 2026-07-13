@@ -69,11 +69,11 @@ const crearDetalle = (producto) => {
         /* agregarAlCarrito viene de js/carrito.js */
         agregarAlCarrito(producto.id).catch((error) => {
             console.error('No se pudo agregar al carrito:', error);
-            mostrarToast('No se pudo agregar al carrito. Intenta de nuevo.', 'error');
+            mostrarToast('No se pudo agregar al carrito. Intentá de nuevo.', 'error');
         });
     });
 
-    const btnVolver = crearElemento('a', 'btn btn--secundario', 'Volver al catalogo');
+    const btnVolver = crearElemento('a', 'btn btn--secundario', 'Volver al catálogo');
     btnVolver.href = 'index.html#catalogo';
 
     acciones.append(btnCarrito, btnVolver);
@@ -95,7 +95,7 @@ const renderDetalle = async () => {
     const idCrudo = new URLSearchParams(window.location.search).get('id');
     const id = Number(idCrudo);
     if (!idCrudo || !Number.isInteger(id) || id <= 0) {
-        mostrarEstado(contenedor, 'Producto no valido. Volve al catalogo y elegi uno.', 'catalogo__estado--error');
+        mostrarEstado(contenedor, 'Producto no válido. Volvé al catálogo y elegí uno.', 'catalogo__estado--error');
         return;
     }
 
@@ -104,7 +104,7 @@ const renderDetalle = async () => {
     try {
         const producto = await obtenerProducto(id);
         if (!producto) {
-            mostrarEstado(contenedor, 'No encontramos ese producto. Puede que ya no este disponible.', 'catalogo__estado--error');
+            mostrarEstado(contenedor, 'No encontramos ese producto. Puede que ya no esté disponible.', 'catalogo__estado--error');
             return;
         }
         /* Titulo de la pestana con el nombre del producto */
@@ -112,7 +112,7 @@ const renderDetalle = async () => {
         contenedor.replaceChildren(crearDetalle(producto));
     } catch (error) {
         console.error('Error cargando el producto:', error);
-        mostrarEstado(contenedor, 'No pudimos cargar el producto. Revisa la conexion e intenta de nuevo.', 'catalogo__estado--error');
+        mostrarEstado(contenedor, 'No pudimos cargar el producto. Revisá la conexión e intentá de nuevo.', 'catalogo__estado--error');
     }
 };
 

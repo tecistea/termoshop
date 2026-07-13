@@ -155,7 +155,7 @@ const renderCatalogo = async () => {
         console.error('Error cargando el catalogo:', error);
         contenedor.replaceChildren(
             crearElemento('p', 'catalogo__estado catalogo__estado--error',
-                'No pudimos cargar los productos. Revisa la conexion e intenta de nuevo.')
+                'No pudimos cargar los productos. Revisá la conexión e intentá de nuevo.')
         );
     }
 };
@@ -215,7 +215,7 @@ const handlerCatalogo = (evento) => {
     /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
     agregarAlCarrito(idProducto).catch((error) => {
         console.error('No se pudo agregar al carrito:', error);
-        mostrarToast('No se pudo agregar al carrito. Intenta de nuevo.', 'error');
+        mostrarToast('No se pudo agregar al carrito. Intentá de nuevo.', 'error');
     });
 };
 

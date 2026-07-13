@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO basico -->
-    <meta name="description" content="termoshop: ecommerce de termos Stanley, Lumilagro, Peabody y Termolar. Catalogo con precios en pesos argentinos.">
+    <meta name="description" content="termoshop: ecommerce de termos Stanley, Lumilagro, Peabody y Termolar. Catálogo con precios en pesos argentinos.">
     <meta name="author" content="David Wuscovi - ISTEA 2026">
 
     <title>termoshop - Termos premium en Argentina</title>
@@ -17,20 +17,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
 
     <!-- CSS externo en archivo separado: requisito de Clase 3 (nada de <style> ni inline) -->
-    <link rel="stylesheet" href="estilos.css?v=f710b0f">
+    <link rel="stylesheet" href="estilos.css?v=c749ba1">
 
     <!-- JS con defer: se descarga en paralelo pero se ejecuta despues del parseo del HTML.
          Asi no necesitamos DOMContentLoaded y el render no se bloquea.
          Orden importa: config (claves) -> api (wrapper fetch) -> app (logica). -->
-    <script src="js/config.js?v=f710b0f" defer></script>
-    <script src="js/api.js?v=f710b0f" defer></script>
-    <script src="js/utils.js?v=f710b0f" defer></script>
-    <script src="js/toast.js?v=f710b0f" defer></script>
-    <script src="js/nav.js?v=f710b0f" defer></script>
-    <script src="js/sesion.js?v=f710b0f" defer></script>
-    <script src="js/footer.js?v=f710b0f" defer></script>
-    <script src="js/carrito.js?v=f710b0f" defer></script>
-    <script src="app.js?v=f710b0f" defer></script>
+    <script src="js/config.js?v=c749ba1" defer></script>
+    <script src="js/api.js?v=c749ba1" defer></script>
+    <script src="js/utils.js?v=c749ba1" defer></script>
+    <script src="js/toast.js?v=c749ba1" defer></script>
+    <script src="js/nav.js?v=c749ba1" defer></script>
+    <script src="js/sesion.js?v=c749ba1" defer></script>
+    <script src="js/footer.js?v=c749ba1" defer></script>
+    <script src="js/carrito.js?v=c749ba1" defer></script>
+    <script src="app.js?v=c749ba1" defer></script>
 </head>
 <body>
 
@@ -38,11 +38,11 @@
          Header semantico con nav interno. La navbar va fixed (CSS) y usa Flexbox
          para distribuir: logo a la izquierda, links al centro, CTA a la derecha. -->
     <header class="cabecera">
-        <nav class="nav" aria-label="Navegacion principal">
+        <nav class="nav" aria-label="Navegación principal">
             <a href="#hero" class="nav__logo">termoshop</a>
 
             <!-- Boton hamburguesa: visible solo en mobile (CSS). Controla #nav-menu -->
-            <button type="button" class="nav__toggle" aria-label="Abrir menu"
+            <button type="button" class="nav__toggle" aria-label="Abrir menú"
                     aria-expanded="false" aria-controls="nav-menu">
                 <span class="nav__toggle-barra"></span>
                 <span class="nav__toggle-barra"></span>
@@ -52,7 +52,7 @@
             <!-- Menu colapsable: links + estado de sesion. En mobile se despliega -->
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__lista">
-                    <li><a href="#catalogo" class="nav__link" data-seccion="catalogo">Catalogo</a></li>
+                    <li><a href="#catalogo" class="nav__link" data-seccion="catalogo">Catálogo</a></li>
                     <li><a href="contacto.html" class="nav__link">Contacto</a></li>
                 </ul>
 
@@ -75,9 +75,9 @@
                 <h1 class="hero__titulo">Termos que duran toda la vida</h1>
                 <p class="hero__subtitulo">
                     Stanley, Lumilagro, Peabody y Termolar.
-                    Acero inoxidable y vidrio premium para tu mate, cafe o agua caliente.
+                    Acero inoxidable y vidrio premium para tu mate, café o agua caliente.
                 </p>
-                <a href="#catalogo" class="btn btn--acento">Explorar catalogo</a>
+                <a href="#catalogo" class="btn btn--acento">Explorar catálogo</a>
             </div>
         </section>
 
@@ -88,7 +88,7 @@
         <section id="destacados" class="seccion seccion--destacados" hidden>
             <h2 class="seccion__titulo">Destacados</h2>
             <p class="seccion__intro">
-                Novedades y ofertas seleccionadas de nuestro catalogo.
+                Novedades y ofertas seleccionadas de nuestro catálogo.
             </p>
 
             <div class="carrusel">
@@ -109,9 +109,9 @@
              El contenido lo rellena JS dinamicamente con createElement + append
              (requisito 24: prohibido innerHTML para datos del array por XSS). -->
         <section id="catalogo" class="seccion seccion--catalogo">
-            <h2 class="seccion__titulo">Nuestro catalogo</h2>
+            <h2 class="seccion__titulo">Nuestro catálogo</h2>
             <p class="seccion__intro">
-                Termos seleccionados, todos con garantia oficial y stock real en Argentina.
+                Termos seleccionados, todos con garantía oficial y stock real en Argentina.
             </p>
 
             <!-- Contenedor del grid. JS lo rellena con <article> por producto. -->

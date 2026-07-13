@@ -124,7 +124,8 @@ Consigna completa: [docs/consigna-parcial-2.md](docs/consigna-parcial-2.md).
 | Página | Para qué |
 |---|---|
 | `index.html` | Catálogo (ahora desde Supabase) + botón "Agregar al carrito" |
-| `login.html` | Registro e inicio de sesión |
+| `login.html` | Inicio de sesión |
+| `registro.html` | Registro de nuevos usuarios |
 | `admin.html` | Panel CRUD de productos (solo admin) |
 | `carrito.html` | Carrito del usuario + checkout |
 

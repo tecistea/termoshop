@@ -45,7 +45,7 @@ const iniciarPaginaOrdenes = () => {
 
         if (ordenes.length === 0) {
             lista.append(crearElemento('p', 'catalogo__estado',
-                esAdmin ? 'Todavia no hay ordenes.' : 'Todavia no hiciste ninguna compra.'));
+                esAdmin ? 'Todavía no hay órdenes.' : 'Todavía no hiciste ninguna compra.'));
             return;
         }
 
@@ -84,7 +84,7 @@ const iniciarPaginaOrdenes = () => {
     /* Subtitulo segun rol */
     if (subtitulo) {
         subtitulo.textContent = esAdmin
-            ? 'Todas las ordenes de la tienda (vista de administrador).'
+            ? 'Todas las órdenes de la tienda (vista de administrador).'
             : 'Tu historial de compras.';
     }
 
@@ -94,7 +94,7 @@ const iniciarPaginaOrdenes = () => {
         console.error('Error cargando ordenes:', error);
         lista.replaceChildren(
             crearElemento('p', 'catalogo__estado catalogo__estado--error',
-                'No pudimos cargar las ordenes. Intenta de nuevo.')
+                'No pudimos cargar las órdenes. Intentá de nuevo.')
         );
     });
 };
