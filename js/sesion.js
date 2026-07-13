@@ -94,7 +94,7 @@ const iniciarSesion = async (email, password) => {
     });
     const data = await respuesta.json();
     if (!respuesta.ok) {
-        throw new Error(data.msg || data.error_description || 'Email o contrasena incorrectos.');
+        throw new Error(data.msg || data.error_description || 'Email o contraseña incorrectos.');
     }
 
     const token = data.access_token;
@@ -170,7 +170,7 @@ const requerirSesion = () => {
 const requerirAdmin = () => {
     const sesion = requerirSesion();
     if (sesion && sesion.rol !== 'admin') {
-        mostrarToast('Esta seccion es solo para administradores.', 'error');
+        mostrarToast('Esta sección es solo para administradores.', 'error');
         setTimeout(() => { window.location.href = 'index.html'; }, 1200);
         return null;
     }
@@ -194,7 +194,7 @@ const pintarNavSesion = () => {
         const link = document.createElement('a');
         link.href = 'login.html';
         link.className = 'nav__link';
-        link.textContent = 'Iniciar sesion';
+        link.textContent = 'Iniciar sesión';
         contenedor.append(link);
         return;
     }
@@ -225,7 +225,7 @@ const pintarNavSesion = () => {
     const ordenes = document.createElement('a');
     ordenes.href = 'ordenes.html';
     ordenes.className = 'nav__link';
-    ordenes.textContent = 'Ordenes';
+    ordenes.textContent = 'Órdenes';
     contenedor.append(ordenes);
 
     /* Boton salir */

@@ -60,19 +60,19 @@ const validarFormulario = (evento) => {
 
     /* Validacion email: usamos checkValidity() que aplica el type=email del HTML */
     if (!inputEmail.checkValidity() || inputEmail.value.trim() === '') {
-        mostrarError(inputEmail, 'Ingresa un email valido (ej: vos@ejemplo.com).');
+        mostrarError(inputEmail, 'Ingresá un email válido (ej: vos@ejemplo.com).');
         hayErrores = true;
     }
 
     /* Validacion telefono: pattern HTML5 evalua si son 10-15 digitos */
     if (!inputTelefono.checkValidity() || inputTelefono.value.trim() === '') {
-        mostrarError(inputTelefono, 'El telefono debe tener entre 10 y 15 digitos numericos.');
+        mostrarError(inputTelefono, 'El teléfono debe tener entre 10 y 15 dígitos numéricos.');
         hayErrores = true;
     }
 
     /* Validacion asunto: el value vacio del placeholder hace que required dispare */
     if (inputAsunto.value === '') {
-        mostrarError(inputAsunto, 'Elegi un motivo de consulta.');
+        mostrarError(inputAsunto, 'Elegí un motivo de consulta.');
         hayErrores = true;
     }
 
@@ -85,7 +85,7 @@ const validarFormulario = (evento) => {
 
     /* Validacion checkbox terminos */
     if (!inputTerminos.checked) {
-        mostrarError(inputTerminos, 'Tenes que aceptar los terminos para continuar.');
+        mostrarError(inputTerminos, 'Tenés que aceptar los términos para continuar.');
         hayErrores = true;
     }
 

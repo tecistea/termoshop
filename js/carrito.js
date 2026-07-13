@@ -19,7 +19,7 @@
 const agregarAlCarrito = async (productoId) => {
     const sesion = obtenerSesion();
     if (!sesion) {
-        mostrarToast('Inicia sesion para agregar productos al carrito.', 'info');
+        mostrarToast('Iniciá sesión para agregar productos al carrito.', 'info');
         /* Pequeña espera para que el usuario alcance a leer el toast
            antes de redirigir al login. */
         setTimeout(() => { window.location.href = 'login.html'; }, 1200);
@@ -89,7 +89,7 @@ const iniciarPaginaCarrito = () => {
         const items = await obtenerCarrito(sesion.id);
 
         if (items.length === 0) {
-            lista.append(crearElemento('p', 'catalogo__estado', 'Tu carrito esta vacio.'));
+            lista.append(crearElemento('p', 'catalogo__estado', 'Tu carrito está vacío.'));
             totalEl.textContent = '';
             btnCheckout.hidden = true;
             return;
@@ -187,7 +187,7 @@ const iniciarPaginaCarrito = () => {
             /* Vaciamos el carrito del usuario */
             await authDelete('carrito_items', `?usuario_id=eq.${sesion.id}`);
 
-            mostrarMensaje(`Compra realizada por ${formatearPrecio(total)}. Gracias!`, false);
+            mostrarMensaje(`Compra realizada por ${formatearPrecio(total)}. ¡Gracias!`, false);
             await render();
         } catch (error) {
             mostrarMensaje(error.message, true);

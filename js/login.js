@@ -35,7 +35,7 @@ if (formLogin) {
         const password = document.querySelector('#login-password').value;
 
         if (!email || password.length < 6) {
-            mostrarMensaje(mensaje, 'Completa email y contrasena (minimo 6 caracteres).', true);
+            mostrarMensaje(mensaje, 'Completá email y contraseña (mínimo 6 caracteres).', true);
             return;
         }
 
@@ -60,13 +60,13 @@ if (formRegistro) {
         const password = document.querySelector('#reg-password').value;
 
         if (!email || password.length < 6) {
-            mostrarMensaje(mensaje, 'Completa email y contrasena (minimo 6 caracteres).', true);
+            mostrarMensaje(mensaje, 'Completá email y contraseña (mínimo 6 caracteres).', true);
             return;
         }
 
         try {
             await registrar(email, password);
-            mostrarMensaje(mensaje, 'Cuenta creada. Ya podes iniciar sesion.', false);
+            mostrarMensaje(mensaje, 'Cuenta creada. Ya podés iniciar sesión.', false);
             formRegistro.reset();
         } catch (error) {
             mostrarMensaje(mensaje, error.message, true);
