@@ -68,6 +68,29 @@
             </div>
         </section>
 
+        <!-- ====== DESTACADOS ======
+             Carrusel horizontal con los productos destacados (badge NUEVO/OFERTA).
+             app.js rellena la pista (#destacados-pista) y cablea las flechas.
+             Si no hay destacados, JS oculta la seccion entera. -->
+        <section id="destacados" class="seccion seccion--destacados" hidden>
+            <h2 class="seccion__titulo">Destacados</h2>
+            <p class="seccion__intro">
+                Novedades y ofertas seleccionadas de nuestro catalogo.
+            </p>
+
+            <div class="carrusel">
+                <button type="button" class="carrusel__flecha carrusel__flecha--prev"
+                        id="destacados-prev" aria-label="Ver destacados anteriores">&lsaquo;</button>
+
+                <div class="carrusel__pista" id="destacados-pista">
+                    <!-- Las cards destacadas se inyectan desde app.js -->
+                </div>
+
+                <button type="button" class="carrusel__flecha carrusel__flecha--next"
+                        id="destacados-next" aria-label="Ver mas destacados">&rsaquo;</button>
+            </div>
+        </section>
+
         <!-- ====== CATALOGO ======
              Section con titulo y contenedor vacio.
              El contenido lo rellena JS dinamicamente con createElement + append

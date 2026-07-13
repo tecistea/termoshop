@@ -138,6 +138,41 @@ const renderCatalogo = async () => {
     }
 };
 
+/* renderDestacados: llena el carrusel con los productos destacados (los que
+   tienen badge NUEVO u OFERTA) y cablea las flechas de scroll. Si no hay
+   destacados, oculta la seccion entera. Reutiliza crearCard y productosCargados,
+   asi que se llama despues de renderCatalogo. */
+const renderDestacados = () => {
+    const seccion = document.querySelector('#destacados');
+    const pista = document.querySelector('#destacados-pista');
+    if (!seccion || !pista) {
+        return;
+    }
+
+    const destacados = productosCargados.filter((p) => p.badge);
+
+    /* Sin destacados: no mostramos la seccion */
+    if (destacados.length === 0) {
+        seccion.hidden = true;
+        return;
+    }
+
+    pista.replaceChildren();
+    destacados.forEach((producto) => pista.append(crearCard(producto)));
+    seccion.hidden = false;
+
+    /* Flechas: desplazan la pista ~un ancho de card (80% del viewport de la pista). */
+    const prev = document.querySelector('#destacados-prev');
+    const next = document.querySelector('#destacados-next');
+    const paso = () => Math.round(pista.clientWidth * 0.8);
+    if (prev) {
+        prev.addEventListener('click', () => pista.scrollBy({ left: -paso(), behavior: 'smooth' }));
+    }
+    if (next) {
+        next.addEventListener('click', () => pista.scrollBy({ left: paso(), behavior: 'smooth' }));
+    }
+};
+
 
 /* La validacion del formulario de contacto se movio a js/contacto.js
    junto con la pagina contacto.html. app.js queda enfocado en el catalogo. */
@@ -224,7 +259,10 @@ const init = async () => {
     /* b) renderizamos las cards desde Supabase */
     await renderCatalogo();
 
-    /* c) demos funcionales con los datos ya cargados */
+    /* c) carrusel de destacados (usa productosCargados ya poblado) */
+    renderDestacados();
+
+    /* d) demos funcionales con los datos ya cargados */
     correrDemosFuncionales(productosCargados);
 };
 
