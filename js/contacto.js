@@ -98,6 +98,12 @@ const validarFormulario = (evento) => {
         }, 4000);
     } else {
         avisoExito.hidden = true;
+        /* Llevamos el foco al primer campo con error para que el usuario no
+           tenga que buscarlo (mejora la correccion con teclado y mouse). */
+        const primerInvalido = form.querySelector('.con-error');
+        if (primerInvalido) {
+            primerInvalido.focus();
+        }
     }
 };
 

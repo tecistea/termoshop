@@ -15,6 +15,7 @@ Desktop.ini
 .serena/
 CLAUDE.md
 .playwright-mcp/
+.docs/
 
 # Logs y temporales
 *.log

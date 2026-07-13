@@ -170,8 +170,8 @@ const requerirSesion = () => {
 const requerirAdmin = () => {
     const sesion = requerirSesion();
     if (sesion && sesion.rol !== 'admin') {
-        alert('Esta seccion es solo para administradores.');
-        window.location.href = 'index.html';
+        mostrarToast('Esta seccion es solo para administradores.', 'error');
+        setTimeout(() => { window.location.href = 'index.html'; }, 1200);
         return null;
     }
     return sesion;

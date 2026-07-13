@@ -19,8 +19,10 @@
 const agregarAlCarrito = async (productoId) => {
     const sesion = obtenerSesion();
     if (!sesion) {
-        alert('Inicia sesion para agregar productos al carrito.');
-        window.location.href = 'login.html';
+        mostrarToast('Inicia sesion para agregar productos al carrito.', 'info');
+        /* Pequeña espera para que el usuario alcance a leer el toast
+           antes de redirigir al login. */
+        setTimeout(() => { window.location.href = 'login.html'; }, 1200);
         return;
     }
 
@@ -40,7 +42,7 @@ const agregarAlCarrito = async (productoId) => {
             cantidad: 1
         });
     }
-    alert('Producto agregado al carrito.');
+    mostrarToast('Producto agregado al carrito.', 'exito');
 };
 
 

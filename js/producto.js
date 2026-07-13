@@ -69,7 +69,7 @@ const crearDetalle = (producto) => {
         /* agregarAlCarrito viene de js/carrito.js */
         agregarAlCarrito(producto.id).catch((error) => {
             console.error('No se pudo agregar al carrito:', error);
-            alert('No se pudo agregar al carrito. Intenta de nuevo.');
+            mostrarToast('No se pudo agregar al carrito. Intenta de nuevo.', 'error');
         });
     });
 
