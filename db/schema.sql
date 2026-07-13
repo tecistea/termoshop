@@ -170,7 +170,10 @@ create policy "ordenes - admin lee todas"
 
 
 -- ====================================================================
--- SEED productos (los 6 termos del parcial 1, precios ARS mayo 2026)
+-- SEED productos (12 termos, precios ARS mayo 2026)
+--   - Los 6 primeros vienen del parcial 1.
+--   - Los 6 siguientes se agregaron en el parcial 2 para ampliar el
+--     catalogo (mismas columnas, imagenes reales en productos-imagenes/).
 -- ====================================================================
 insert into productos (nombre, marca, capacidad, material, precio, stock, badge, imagen, descripcion) values
     ('Classic Legendary 1.4L', 'Stanley', '1400 ml', 'Acero inoxidable 18/8', 215000, 8, null,
@@ -195,7 +198,32 @@ insert into productos (nombre, marca, capacidad, material, precio, stock, badge,
 
     ('Magic Pump 1L', 'Termolar', '1000 ml', 'Plastico con sistema bomba', 32500, 20, null,
      'productos-imagenes/termolar-magic-pump-1l.webp',
-     'Termo con sistema bomba, perfecto para servir sin levantarlo. Ideal para mesa familiar.');
+     'Termo con sistema bomba, perfecto para servir sin levantarlo. Ideal para mesa familiar.'),
+
+    -- --- Parcial 2: 6 productos nuevos ---
+    ('Adventure To-Go 1L', 'Stanley', '1000 ml', 'Acero inoxidable 18/8', 128000, 10, 'NUEVO',
+     'productos-imagenes/stanley-adventure-togo-1l.webp',
+     'Botella todoterreno con tapa que funciona como taza. Doble pared al vacio: caliente 15 hs, frio 20 hs.'),
+
+    ('Trigger-Action Travel Mug 590ml', 'Stanley', '590 ml', 'Acero inoxidable doble pared', 72000, 18, null,
+     'productos-imagenes/stanley-trigger-action-590.webp',
+     'Vaso termico con tapa de gatillo: se abre y cierra con una sola mano. Antiderrame y apto para posavasos del auto.'),
+
+    ('Terra Estampado 1L', 'Lumilagro', '1000 ml', 'Plastico con ampolla de vidrio', 27500, 22, 'OFERTA',
+     'productos-imagenes/lumilagro-terra-estampado-1l.webp',
+     'El clasico Terra en edicion estampada. Ampolla de vidrio de doble pared al vacio y cuerpo liviano para la mochila.'),
+
+    ('Lumina 1L', 'Termolar', '1000 ml', 'Acero inoxidable con tapa cebadora', 41000, 16, null,
+     'productos-imagenes/termolar-lumina-1l.webp',
+     'Termo de acero con pico cebador y cierre a rosca. Diseño moderno pensado para el mate de todos los dias.'),
+
+    ('IceFlow Flip Straw 700ml', 'Stanley', '700 ml', 'Acero inoxidable 18/8', 89000, 14, 'NUEVO',
+     'productos-imagenes/stanley-iceflow-flip-straw-700.webp',
+     'Botella con sorbete rebatible antiderrame y manija para colgar. Mantiene el frio hasta 2 dias.'),
+
+    ('Quencher H2.0 FlowState 1.2L', 'Stanley', '1200 ml', 'Acero inoxidable doble pared', 112000, 12, 'OFERTA',
+     'productos-imagenes/stanley-quencher-h2-12l.webp',
+     'El vaso termico icono: manija ergonomica, sorbete reutilizable y tapa FlowState de 3 posiciones. Entra en el portavasos.');
 
 
 -- ====================================================================

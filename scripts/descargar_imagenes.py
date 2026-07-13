@@ -90,6 +90,49 @@ PRODUCTOS = [
         # termolar.com.ar (sitio oficial via Tiendanube CDN, 1024px webp)
         "url": "https://acdn-us.mitiendanube.com/stores/001/471/168/products/8700bra-41cc1cf69cd483731917229519082121-1024-1024.webp",
     },
+    # ----- Parcial 2: 6 productos nuevos -----
+    {
+        "marca": "Stanley",
+        "nombre": "Adventure To-Go 1L",
+        "archivo": "stanley-adventure-togo-1l.webp",
+        # stanley1913.mx (Shopify CDN, foto oficial Adventure To-Go, fondo blanco)
+        "url": "https://stanley1913.mx/cdn/shop/files/B2B_Web_PNG-The-Adventure-To-Go-Bottle-1-1QT-Charcoal-Glow-Front_13d01e42-57c7-4f4c-995e-4442482f1ce0.webp?v=1777220868&width=1080",
+    },
+    {
+        "marca": "Stanley",
+        "nombre": "Trigger-Action Travel Mug 590ml",
+        "archivo": "stanley-trigger-action-590.webp",
+        # newdaysports.com (Shopify CDN, Trigger-Action Travel Mug Matte Black, fondo blanco)
+        "url": "https://www.newdaysports.com/cdn/shop/products/B2B_Large_PNG-Trigger_Action_Travel_Mug_20oz_MBlack_front_1800x1800_01404ee2-deda-4d2e-ae51-7145016180d8_1024x.png?v=1762526789",
+    },
+    {
+        "marca": "Lumilagro",
+        "nombre": "Terra Estampado 1L",
+        "archivo": "lumilagro-terra-estampado-1l.webp",
+        # Tiendanube CDN (retailer), Terra estampado 1L, fondo blanco
+        "url": "https://acdn-us.mitiendanube.com/stores/461/661/products/termo-terra-estampado_mesa-de-trabajo-11-20536d7620cfb4277e16261032006913-1024-1024.webp",
+    },
+    {
+        "marca": "Termolar",
+        "nombre": "Lumina 1L",
+        "archivo": "termolar-lumina-1l.webp",
+        # termolar.com.ar (sitio oficial via Tiendanube CDN, 1024px webp)
+        "url": "https://acdn-us.mitiendanube.com/stores/001/471/168/products/97511-77100a248284dabeec16091093711396-1024-1024.webp",
+    },
+    {
+        "marca": "Stanley",
+        "nombre": "IceFlow Flip Straw 700ml",
+        "archivo": "stanley-iceflow-flip-straw-700.webp",
+        # stanley1913.com (Shopify CDN oficial, IceFlow Flip Straw Bottle, fondo blanco)
+        "url": "https://www.stanley1913.com/cdn/shop/files/Web_PNG_Square-TheIceFlowFlipStraw2.0Bottle24OZ-Cream2.0-Front.png?v=1778265784&width=1200",
+    },
+    {
+        "marca": "Stanley",
+        "nombre": "Quencher H2.0 FlowState 1.2L",
+        "archivo": "stanley-quencher-h2-12l.webp",
+        # stanley1913.com (Shopify CDN oficial, Quencher H2.0 FlowState 40oz, fondo blanco)
+        "url": "https://www.stanley1913.com/cdn/shop/files/Web_PNG_Square-The_Quencher_H2.0_FlowState_Tumbler_40OZ_-_Purple_Dust_-_Front.png?v=1770952011&width=1200",
+    },
 ]
 
 
