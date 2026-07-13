@@ -531,6 +531,31 @@ button {
     font-weight: 600;
 }
 
+/* Datos de contacto directos (email, direccion, horario) en contacto.html */
+.contacto__datos {
+    list-style: none;
+    margin-bottom: var(--espacio-lg);
+    display: grid;
+    gap: var(--espacio-xs);
+    color: var(--color-texto-suave);
+}
+
+.contacto__datos strong {
+    color: var(--color-texto);
+}
+
+.contacto__link {
+    color: var(--color-primario);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.contacto__link:hover,
+.contacto__link:focus-visible {
+    color: var(--color-acento);
+    text-decoration: underline;
+}
+
 /* Mapa: contenedor responsive para iframe */
 .mapa {
     width: 100%;
