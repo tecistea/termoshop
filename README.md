@@ -135,6 +135,31 @@ Consigna completa: [docs/consigna-parcial-2.md](docs/consigna-parcial-2.md).
 - `sesion.js` — auth, sesión, guard de roles y `fetch` autenticado (JWT del usuario).
 - `login.js`, `admin.js`, `carrito.js` — lógica de cada página.
 
+## Cache-busting de los assets
+
+Los `<script>` y el `<link>` del CSS llevan un parámetro de versión
+(`estilos.css?v=<hash>`, `js/app.js?v=<hash>`) para que el navegador no
+sirva versiones viejas cacheadas cuando cambia el código. El `<hash>` es
+el del commit git, así que se renueva en cada commit.
+
+Se aplica con [tools/cache-bust.js](tools/cache-bust.js):
+
+```bash
+node tools/cache-bust.js          # versiona con el commit actual
+node tools/cache-bust.js abc1234  # versiona con un hash a mano
+```
+
+Para que se ejecute **solo** en cada commit, hay un hook pre-commit
+versionado en [tools/hooks/pre-commit](tools/hooks/pre-commit). Instalarlo
+una vez tras clonar:
+
+```bash
+git config core.hooksPath tools/hooks
+```
+
+(en Windows/macOS/Linux funciona igual). Desde ahí, `git commit` renueva
+los `?v=` y re-agrega los HTML automáticamente.
+
 ## Puesta en marcha (Supabase)
 
 1. Crear un proyecto en [supabase.com](https://supabase.com).
