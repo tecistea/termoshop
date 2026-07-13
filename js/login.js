@@ -1,8 +1,9 @@
 /* ====================================================================
    termoshop - js/login.js (Parcial 2)
    --------------------------------------------------------------------
-   Logica de login.html: maneja el submit de los formularios de login y
-   registro usando las funciones de js/sesion.js. Sin innerHTML.
+   Logica de login.html y registro.html: cada pagina tiene un solo form.
+   Este archivo se carga en ambas y engancha el que exista usando las
+   funciones de js/sesion.js. Sin innerHTML.
    ==================================================================== */
 
 'use strict';
@@ -66,8 +67,10 @@ if (formRegistro) {
 
         try {
             await registrar(email, password);
-            mostrarMensaje(mensaje, 'Cuenta creada. Ya podés iniciar sesión.', false);
+            mostrarMensaje(mensaje, 'Cuenta creada. Te llevamos a iniciar sesión...', false);
             formRegistro.reset();
+            /* Ya con cuenta, mandamos a la pagina de login */
+            setTimeout(() => { window.location.href = 'login.html'; }, 1200);
         } catch (error) {
             mostrarMensaje(mensaje, error.message, true);
         }
