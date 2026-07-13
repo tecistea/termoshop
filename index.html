@@ -17,20 +17,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
 
     <!-- CSS externo en archivo separado: requisito de Clase 3 (nada de <style> ni inline) -->
-    <link rel="stylesheet" href="estilos.css?v=0f8b91f">
+    <link rel="stylesheet" href="estilos.css?v=bd51c1a">
 
     <!-- JS con defer: se descarga en paralelo pero se ejecuta despues del parseo del HTML.
          Asi no necesitamos DOMContentLoaded y el render no se bloquea.
          Orden importa: config (claves) -> api (wrapper fetch) -> app (logica). -->
-    <script src="js/config.js?v=0f8b91f" defer></script>
-    <script src="js/api.js?v=0f8b91f" defer></script>
-    <script src="js/utils.js?v=0f8b91f" defer></script>
-    <script src="js/toast.js?v=0f8b91f" defer></script>
-    <script src="js/nav.js?v=0f8b91f" defer></script>
-    <script src="js/sesion.js?v=0f8b91f" defer></script>
-    <script src="js/footer.js?v=0f8b91f" defer></script>
-    <script src="js/carrito.js?v=0f8b91f" defer></script>
-    <script src="app.js?v=0f8b91f" defer></script>
+    <script src="js/config.js?v=bd51c1a" defer></script>
+    <script src="js/api.js?v=bd51c1a" defer></script>
+    <script src="js/utils.js?v=bd51c1a" defer></script>
+    <script src="js/toast.js?v=bd51c1a" defer></script>
+    <script src="js/nav.js?v=bd51c1a" defer></script>
+    <script src="js/sesion.js?v=bd51c1a" defer></script>
+    <script src="js/footer.js?v=bd51c1a" defer></script>
+    <script src="js/carrito.js?v=bd51c1a" defer></script>
+    <script src="app.js?v=bd51c1a" defer></script>
 </head>
 <body>
 
@@ -77,7 +77,12 @@
                     Stanley, Lumilagro, Peabody y Termolar.
                     Acero inoxidable y vidrio premium para tu mate, café o agua caliente.
                 </p>
-                <a href="#catalogo" class="btn btn--acento">Explorar catálogo</a>
+                <a href="#catalogo" class="btn btn--acento">
+                    <span>Explorar catálogo</span>
+                    <svg class="icono icono--flecha" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
             </div>
         </section>
 

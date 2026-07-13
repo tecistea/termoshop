@@ -63,7 +63,7 @@ const crearDetalle = (producto) => {
     /* Acciones: agregar al carrito + volver al catalogo */
     const acciones = crearElemento('div', 'detalle__acciones');
 
-    const btnCarrito = crearElemento('button', 'btn btn--primario', 'Agregar al carrito');
+    const btnCarrito = crearBotonIcono('button', 'btn btn--primario', 'Agregar al carrito', 'carrito');
     btnCarrito.type = 'button';
     btnCarrito.addEventListener('click', () => {
         /* agregarAlCarrito viene de js/carrito.js */
@@ -120,4 +120,5 @@ const renderDetalle = async () => {
 /* ====== INICIALIZACION ======
    Con defer el DOM ya esta parseado. */
 pintarNavSesion();
+actualizarBadgeCarrito();
 renderDetalle();

@@ -13,17 +13,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;500;600&display=swap">
 
-    <link rel="stylesheet" href="estilos.css?v=0f8b91f">
+    <link rel="stylesheet" href="estilos.css?v=bd51c1a">
 
     <!-- Orden: config -> api -> utils -> sesion -> footer -> contacto -->
-    <script src="js/config.js?v=0f8b91f" defer></script>
-    <script src="js/api.js?v=0f8b91f" defer></script>
-    <script src="js/utils.js?v=0f8b91f" defer></script>
-    <script src="js/toast.js?v=0f8b91f" defer></script>
-    <script src="js/nav.js?v=0f8b91f" defer></script>
-    <script src="js/sesion.js?v=0f8b91f" defer></script>
-    <script src="js/footer.js?v=0f8b91f" defer></script>
-    <script src="js/contacto.js?v=0f8b91f" defer></script>
+    <script src="js/config.js?v=bd51c1a" defer></script>
+    <script src="js/api.js?v=bd51c1a" defer></script>
+    <script src="js/utils.js?v=bd51c1a" defer></script>
+    <script src="js/toast.js?v=bd51c1a" defer></script>
+    <script src="js/nav.js?v=bd51c1a" defer></script>
+    <script src="js/sesion.js?v=bd51c1a" defer></script>
+    <script src="js/footer.js?v=bd51c1a" defer></script>
+    <script src="js/contacto.js?v=bd51c1a" defer></script>
 </head>
 <body>
 
@@ -66,11 +66,28 @@
             <!-- Datos de contacto directos -->
             <ul class="contacto__datos">
                 <li>
-                    <strong>Email:</strong>
-                    <a href="mailto:info@termoshop.ar" class="contacto__link">info@termoshop.ar</a>
+                    <svg class="icono icono--sobre" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="m22 6-10 7L2 6"/>
+                    </svg>
+                    <span><strong>Email:</strong>
+                        <a href="mailto:info@termoshop.ar" class="contacto__link">info@termoshop.ar</a>
+                    </span>
                 </li>
-                <li><strong>Dirección:</strong> Av. Belgrano 723, CABA</li>
-                <li><strong>Horario:</strong> Lunes a viernes, con turno previo.</li>
+                <li>
+                    <svg class="icono icono--pin" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span><strong>Dirección:</strong> Av. Belgrano 723, CABA</span>
+                </li>
+                <li>
+                    <svg class="icono icono--reloj" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    <span><strong>Horario:</strong> Lunes a viernes, con turno previo.</span>
+                </li>
             </ul>
 
             <form id="form-contacto" class="form" method="POST" action="#" novalidate>
@@ -153,7 +170,15 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn--primario btn--grande form__boton">Enviar consulta</button>
+                <button type="submit" class="btn btn--primario btn--grande form__boton">
+                    <svg class="icono icono--enviar" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M22 4H8a2 2 0 0 0-2 2v1"/>
+                        <path d="m22 4-9.5 7L8 7.5"/>
+                        <path d="M6 12H2m4 4H3"/>
+                        <path d="M22 4v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-3"/>
+                    </svg>
+                    <span>Enviar consulta</span>
+                </button>
 
                 <!-- Aviso de exito: arranca oculto, JS lo muestra al validar OK -->
                 <p id="form-exito" class="form__exito" hidden>
