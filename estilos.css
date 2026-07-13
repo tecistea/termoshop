@@ -1282,15 +1282,62 @@ button {
 .carrito__item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: var(--espacio-md);
     padding: var(--espacio-md);
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+/* La info (nombre + precio) ocupa el espacio sobrante y empuja cantidad y
+   "Quitar" a la derecha de forma consistente en todas las filas. */
+.carrito__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.carrito__nombre {
+    font-weight: 600;
+    /* nombres largos no rompen el layout */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.carrito__precio-unit {
+    color: var(--color-texto-suave);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .carrito__cantidad {
-    width: 4rem;
-    padding: 0.3rem;
+    /* ancho fijo -> la columna de cantidad queda alineada entre filas */
+    width: 4.5rem;
+    flex-shrink: 0;
+    min-height: 44px;
+    padding: 0.3rem var(--espacio-sm);
+    text-align: center;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-sm);
+    font-family: inherit;
+    font-variant-numeric: tabular-nums;
+}
+
+/* El boton "Quitar" no se estira ni se encoge: columna consistente */
+.carrito__item .btn--peligro {
+    flex-shrink: 0;
+}
+
+/* En pantallas angostas, la fila se reordena para no apretar los controles */
+@media (max-width: 480px) {
+    .carrito__item {
+        flex-wrap: wrap;
+    }
+    .carrito__info {
+        /* la info toma toda la primera linea; cantidad + quitar van debajo */
+        flex-basis: 100%;
+    }
 }
 
 .carrito__total {

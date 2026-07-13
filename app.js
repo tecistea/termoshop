@@ -296,6 +296,14 @@ if (catalogoEl) {
     catalogoEl.addEventListener('click', handlerCatalogo);
 }
 
+/* Listener 1b: el carrusel de Destacados usa las MISMAS cards (crearCard),
+   pero vive en otro contenedor (#destacados-pista). Sin este listener, el
+   boton "Agregar al carrito" de las cards destacadas no hacia nada. */
+const destacadosEl = document.querySelector('#destacados-pista');
+if (destacadosEl) {
+    destacadosEl.addEventListener('click', handlerCatalogo);
+}
+
 /* Listener 2: click en cada link del nav para togglear la clase activa.
    Usamos forEach con arrow para cumplir req 31. */
 document.querySelectorAll('.nav__link').forEach((link) => {

@@ -99,8 +99,13 @@ const iniciarPaginaCarrito = () => {
             const fila = crearElemento('div', 'carrito__item');
             fila.dataset.id = item.id;
 
-            const info = crearElemento('span', '',
-                `${item.productos.nombre} - ${formatearPrecio(item.productos.precio)}`);
+            /* Info del item: nombre y precio en spans separados para poder
+               alinearlos en columnas consistentes entre filas (ver CSS). */
+            const info = crearElemento('div', 'carrito__info');
+            info.append(
+                crearElemento('span', 'carrito__nombre', item.productos.nombre),
+                crearElemento('span', 'carrito__precio-unit', formatearPrecio(item.productos.precio))
+            );
 
             /* Input de cantidad: al cambiar, PATCH de la fila */
             const cantidad = document.createElement('input');
