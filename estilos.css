@@ -51,6 +51,7 @@
     /* Layout */
     --max-ancho: 1200px;
     --altura-nav: 4rem;
+    --altura-pie: 10rem;
 }
 
 
@@ -177,6 +178,7 @@ button {
 
 /* Main: contenedor con max-width para no estirarse en monitores anchos */
 .main {
+    min-height: 59vh;
     max-width: var(--max-ancho);
     margin: 0 auto;
     padding: 0 var(--espacio-md);
@@ -508,6 +510,7 @@ button {
 
 /* Footer: Flexbox 1D con wrap */
 .pie {
+    height: var(--altura-pie);
     background-color: var(--color-primario);
     color: var(--color-superficie);
     padding: var(--espacio-xl) var(--espacio-md);
@@ -693,8 +696,16 @@ button {
     margin-bottom: var(--espacio-lg);
 }
 
+/* Contenedor con scroll horizontal: evita que la tabla desborde la pagina
+   en pantallas angostas. La tabla conserva un ancho minimo legible. */
+.admin__tabla-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
 .admin__tabla {
     width: 100%;
+    min-width: 640px;
     border-collapse: collapse;
     font-size: 0.9rem;
 }
@@ -704,6 +715,7 @@ button {
     border: 1px solid #e0e0e0;
     padding: var(--espacio-sm);
     text-align: left;
+    white-space: nowrap;
 }
 
 .admin__tabla th {
@@ -711,6 +723,7 @@ button {
 }
 
 .boton--secundario {
+    margin-right: 0.3rem;
     background: transparent;
     border: 1px solid var(--color-texto-suave);
     color: var(--color-texto);

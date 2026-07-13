@@ -92,14 +92,16 @@
                  La rellena admin.js. Acciones (editar / borrar) por fila usan
                  data-id y un listener delegado en el <tbody>. -->
             <h2 class="form__titulo">Productos</h2>
-            <table class="admin__tabla">
-                <thead>
-                    <tr>
-                        <th>ID</th><th>Nombre</th><th>Marca</th><th>Precio</th><th>Stock</th><th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-tbody"></tbody>
-            </table>
+            <div class="admin__tabla-scroll">
+                <table class="admin__tabla">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Nombre</th><th>Marca</th><th>Precio</th><th>Stock</th><th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-tbody"></tbody>
+                </table>
+            </div>
         </section>
     </main>
 
