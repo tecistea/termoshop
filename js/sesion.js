@@ -231,7 +231,7 @@ const pintarNavSesion = () => {
     /* Boton salir */
     const salir = document.createElement('button');
     salir.type = 'button';
-    salir.className = 'nav__salir';
+    salir.className = 'btn btn--secundario nav__salir';
     salir.textContent = 'Salir';
     salir.addEventListener('click', cerrarSesion);
     contenedor.append(salir);

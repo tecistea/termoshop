@@ -109,7 +109,7 @@ const iniciarPaginaCarrito = () => {
             cantidad.dataset.id = item.id;
             cantidad.dataset.accion = 'cantidad';
 
-            const quitar = crearElemento('button', 'boton--secundario boton--peligro', 'Quitar');
+            const quitar = crearElemento('button', 'btn btn--peligro', 'Quitar');
             quitar.type = 'button';
             quitar.dataset.id = item.id;
             quitar.dataset.accion = 'quitar';

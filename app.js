@@ -86,14 +86,14 @@ const crearCard = (producto) => {
 
     /* Boton "ver detalle": tambien tiene dataset.id (req 26) para que
        el listener delegado lo identifique con closest(). */
-    const boton = crearElemento('button', 'producto__boton', 'Ver detalle');
+    const boton = crearElemento('button', 'btn btn--primario producto__boton', 'Ver detalle');
     boton.type = 'button';
     boton.dataset.id = producto.id;
     cuerpo.append(boton);
 
     /* Boton "agregar al carrito" (Parcial 2). El listener delegado lo
        distingue por su clase y usa dataset.id para saber que producto. */
-    const botonCarrito = crearElemento('button', 'producto__carrito', 'Agregar al carrito');
+    const botonCarrito = crearElemento('button', 'btn btn--primario btn--bloque producto__carrito', 'Agregar al carrito');
     botonCarrito.type = 'button';
     botonCarrito.dataset.id = producto.id;
     cuerpo.append(botonCarrito);
