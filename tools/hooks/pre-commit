@@ -1,0 +1,29 @@
+#!/bin/sh
+# ====================================================================
+# Hook pre-commit de termoshop
+# --------------------------------------------------------------------
+# Renueva el cache-busting (?v=<hash>) en los .html antes de cada commit
+# y re-agrega al staging los HTML que hayan cambiado, para que la version
+# de los assets quede sincronizada en cada commit sin pasos manuales.
+#
+# Instalacion (una sola vez, tras clonar):
+#   cp tools/hooks/pre-commit .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+# (o usar: git config core.hooksPath tools/hooks)
+# ====================================================================
+
+# Ubicar node (si no esta, avisamos y dejamos commitear igual)
+if ! command -v node >/dev/null 2>&1; then
+    echo "pre-commit: node no encontrado, se omite el cache-busting."
+    exit 0
+fi
+
+# Usamos el hash del HEAD actual (el commit previo). Cambia en cada commit,
+# asi que sirve para invalidar la cache. En el primer commit del repo no hay
+# HEAD todavia; en ese caso el script cae a su propio manejo de error.
+node tools/cache-bust.js || exit 0
+
+# Re-agregar solo los .html que el script haya modificado
+git add -- '*.html'
+
+exit 0

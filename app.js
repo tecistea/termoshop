@@ -85,16 +85,15 @@ const crearCard = (producto) => {
         crearElemento('p', 'producto__stock', `Stock disponible: ${producto.stock} unidades`)
     );
 
-    /* Boton "ver detalle": tambien tiene dataset.id (req 26) para que
-       el listener delegado lo identifique con closest(). */
     /* "Ver detalle": link a la pagina de detalle con el id en la URL.
-       Antes era un boton que expandia la card; ahora navega a producto.html. */
-    const boton = crearElemento('a', 'btn btn--primario producto__boton', 'Ver detalle');
+       Es la accion secundaria (contorno), para diferenciarla del CTA
+       principal "Agregar al carrito" (relleno). */
+    const boton = crearElemento('a', 'btn btn--secundario btn--bloque producto__boton', 'Ver detalle');
     boton.href = `producto.html?id=${producto.id}`;
     cuerpo.append(boton);
 
-    /* Boton "agregar al carrito" (Parcial 2). El listener delegado lo
-       distingue por su clase y usa dataset.id para saber que producto. */
+    /* Boton "agregar al carrito" (Parcial 2): CTA principal (relleno).
+       El listener delegado lo distingue por su clase y usa dataset.id. */
     const botonCarrito = crearElemento('button', 'btn btn--primario btn--bloque producto__carrito', 'Agregar al carrito');
     botonCarrito.type = 'button';
     botonCarrito.dataset.id = producto.id;
@@ -135,6 +134,41 @@ const renderCatalogo = async () => {
             crearElemento('p', 'catalogo__estado catalogo__estado--error',
                 'No pudimos cargar los productos. Revisa la conexion e intenta de nuevo.')
         );
+    }
+};
+
+/* renderDestacados: llena el carrusel con los productos destacados (los que
+   tienen badge NUEVO u OFERTA) y cablea las flechas de scroll. Si no hay
+   destacados, oculta la seccion entera. Reutiliza crearCard y productosCargados,
+   asi que se llama despues de renderCatalogo. */
+const renderDestacados = () => {
+    const seccion = document.querySelector('#destacados');
+    const pista = document.querySelector('#destacados-pista');
+    if (!seccion || !pista) {
+        return;
+    }
+
+    const destacados = productosCargados.filter((p) => p.badge);
+
+    /* Sin destacados: no mostramos la seccion */
+    if (destacados.length === 0) {
+        seccion.hidden = true;
+        return;
+    }
+
+    pista.replaceChildren();
+    destacados.forEach((producto) => pista.append(crearCard(producto)));
+    seccion.hidden = false;
+
+    /* Flechas: desplazan la pista ~un ancho de card (80% del viewport de la pista). */
+    const prev = document.querySelector('#destacados-prev');
+    const next = document.querySelector('#destacados-next');
+    const paso = () => Math.round(pista.clientWidth * 0.8);
+    if (prev) {
+        prev.addEventListener('click', () => pista.scrollBy({ left: -paso(), behavior: 'smooth' }));
+    }
+    if (next) {
+        next.addEventListener('click', () => pista.scrollBy({ left: paso(), behavior: 'smooth' }));
     }
 };
 
@@ -224,7 +258,10 @@ const init = async () => {
     /* b) renderizamos las cards desde Supabase */
     await renderCatalogo();
 
-    /* c) demos funcionales con los datos ya cargados */
+    /* c) carrusel de destacados (usa productosCargados ya poblado) */
+    renderDestacados();
+
+    /* d) demos funcionales con los datos ya cargados */
     correrDemosFuncionales(productosCargados);
 };
 
