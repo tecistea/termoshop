@@ -103,6 +103,25 @@ const crearCard = (producto) => {
     return card;
 };
 
+/* crearSkeletonCard: placeholder animado con la misma silueta que una card
+   real (imagen + lineas + boton). Se muestran varios mientras carga el fetch
+   para dar percepcion de velocidad y evitar el salto de layout. */
+const crearSkeletonCard = () => {
+    const card = crearElemento('div', 'skeleton-card');
+    card.append(crearElemento('div', 'skeleton-card__imagen'));
+
+    const cuerpo = crearElemento('div', 'skeleton-card__cuerpo');
+    cuerpo.append(
+        crearElemento('div', 'skeleton-linea skeleton-linea--corta'),
+        crearElemento('div', 'skeleton-linea skeleton-linea--larga'),
+        crearElemento('div', 'skeleton-linea skeleton-linea--media'),
+        crearElemento('div', 'skeleton-linea skeleton-linea--corta'),
+        crearElemento('div', 'skeleton-linea skeleton-linea--boton')
+    );
+    card.append(cuerpo);
+    return card;
+};
+
 /* renderCatalogo: async porque espera la respuesta de Supabase.
    Muestra un estado de carga, pide los productos, y si falla muestra
    un mensaje de error en vez de romper la pagina. */
@@ -112,8 +131,12 @@ const renderCatalogo = async () => {
         return;
     }
 
-    /* Estado de carga mientras viaja el fetch */
-    contenedor.replaceChildren(crearElemento('p', 'catalogo__estado', 'Cargando productos...'));
+    /* Estado de carga: skeletons con la silueta de las cards (6 placeholders,
+       suficientes para cubrir el viewport en las 3 grillas responsive). */
+    contenedor.replaceChildren();
+    for (let i = 0; i < 6; i += 1) {
+        contenedor.append(crearSkeletonCard());
+    }
 
     try {
         const productos = await obtenerProductos();
@@ -192,7 +215,7 @@ const handlerCatalogo = (evento) => {
     /* agregarAlCarrito viene de js/carrito.js (cargado en index.html). */
     agregarAlCarrito(idProducto).catch((error) => {
         console.error('No se pudo agregar al carrito:', error);
-        alert('No se pudo agregar al carrito. Intenta de nuevo.');
+        mostrarToast('No se pudo agregar al carrito. Intenta de nuevo.', 'error');
     });
 };
 
